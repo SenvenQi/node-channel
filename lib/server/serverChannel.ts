@@ -1,6 +1,6 @@
-import { Event } from "../Event";
+import { Event } from "../event";
 
-export interface IServerChannel {
+export interface ServerChannel {
     onData: Event<string>
 
     listen(): void
