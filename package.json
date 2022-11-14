@@ -1,0 +1,26 @@
+{
+  "name": "nodechannel",
+  "version": "1.0.0",
+  "description": "nodejs channel",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SenvenQi/node-channel.git"
+  },
+  "keywords": [
+    "channel"
+  ],
+  "author": "SevenQi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SenvenQi/node-channel/issues"
+  },
+  "homepage": "https://github.com/SenvenQi/node-channel#readme",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^4.8.4"
+  }
+}
