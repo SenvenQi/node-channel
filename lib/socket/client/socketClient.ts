@@ -21,15 +21,15 @@ class SocketChannel implements ClientChannel{
     option:IOption<SocketOptions>;
     connect(): void {
         this.socket = new Socket(this.option.args.socketConstructorOpts)
-        this.socket.on("connect",this.onData)
-        this.socket.on("ready",this.onData)
-        this.socket.on("timeout",this.onData)
-        this.socket.on("end",this.onData)
-        this.socket.on("close",this.onData)
-        this.socket.on("data",this.onData)
-        this.socket.on("error",this.onData)
-        this.socket.on("lookup",this.onData)
-        this.socket.on("drain",this.onData)
+       // this.socket.on("connect",this.onData)
+       // this.socket.on("ready",this.onData)
+       // this.socket.on("timeout",this.onData)
+       // this.socket.on("end",this.onData)
+       // this.socket.on("close",this.onData)
+        this.socket.on("data",this.onData.bind(this))
+       // this.socket.on("error",this.onData)
+       // this.socket.on("lookup",this.onData)
+       // this.socket.on("drain",this.onData)
         this.socket.connect(this.option.args.path);
     }
 
