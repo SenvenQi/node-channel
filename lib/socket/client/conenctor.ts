@@ -8,14 +8,17 @@ export class SocketOptions {
 export class Connector {
     private socket:Socket
     option:SocketOptions;
+    constructor(option:SocketOptions) {
+        this.option = option;
+    }
     error(error:Error):void {
         console.log(error.message)
         this.socket?.destroy();
     }
     state:boolean
-    connect(): void {
+    connect(ipEndpoint:string): void {
         this.socket = new Socket(this.option.socketConstructorOpts)
-        this.socket.on("connect",()=>console.log("连接成功"))
+        // this.socket.on("connect",()=>console.log("连接成功"))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)
         // this.socket.on("end",this.onData)
@@ -24,7 +27,7 @@ export class Connector {
         this.socket.on("error",this.error.bind(this))
         // this.socket.on("lookup",this.onData)
         // this.socket.on("drain",this.onData)
-        this.socket.connect(this.option.path);
+        this.socket.connect(ipEndpoint);
     }
 
     disConnect(): void {
