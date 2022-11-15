@@ -1,7 +1,6 @@
 import {Event} from "../../event";
 import {Server, ServerOpts, Socket} from "net"
-import { ServerChannel } from "../../server/serverChannel";
-
+import { ServerChannel } from "../../serverChannel";
 class SocketOptions {
     socketConstructorOpts:ServerOpts
     path:string;
