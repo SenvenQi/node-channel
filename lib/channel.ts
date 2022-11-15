@@ -1,11 +1,8 @@
-import {Event} from "./event";
-import {ClientChannel} from "./client/clientChannel";
+import { Buffer } from "buffer";
 
-
-interface IChannelManager{
-    channels: ClientChannel[]
-    add:()=>{}
-    remove:()=>{}
+export interface Channel{
+    send(buffer:Buffer):void
+    receive:(buffer:any) => void
 }
 
 

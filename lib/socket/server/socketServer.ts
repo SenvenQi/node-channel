@@ -1,40 +1,44 @@
-import { ClientChannel, IOption } from "../../client/clientChannel";
-import {Event} from "../../event";
-import {Socket, SocketConstructorOpts, Server, ServerOpts} from "net"
-import {ServerChannel} from "../../server/serverChannel";
-
+import {Server, ServerOpts, Socket} from "net"
+import { ServerChannel } from "../../serverChannel";
 class SocketOptions {
-    serverOpts:ServerOpts
+    socketConstructorOpts:ServerOpts
     path:string;
 }
 
 
 class SocketChannel implements ServerChannel{
 
-    private socketServer:Server;
+    private socket:Server;
 
-    constructor(option:IOption<SocketOptions>) {
+    private socketClients:Socket[]
+    constructor(option:SocketOptions) {
         this.option = option;
     }
 
-    onData: Event<any>;
     state: boolean;
-    option:IOption<SocketOptions>;
+    option:SocketOptions;
+    error(error:Error):void {
+        console.log(error.message)
+        this.socket?.close();
+    }
+    conection(socket:Socket):void{
+        this.socketClients.push(socket)
+    }
     listen(): void {
-        this.socketServer = new Server(this.option.args.serverOpts)
-        // this.socket.on("connect",this.onData)
+        this.socket = new Server(this.option.socketConstructorOpts)
+        this.socket.on("connection",this.conection.bind(this))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)
         // this.socket.on("end",this.onData)
         // this.socket.on("close",this.onData)
-        this.socketServer.on("data",this.onData.bind(this))
-        // this.socket.on("error",this.onData)
+        // this.socket.on("data",this.onData.bind(this))
+        this.socket.on("error",this.error.bind(this))
         // this.socket.on("lookup",this.onData)
         // this.socket.on("drain",this.onData)
-        this.socketServer.listen(this.option.args.path)
+        this.socket.listen(this.option.path);
     }
 
     disListen(): void {
-        this.socketServer?.close();
+        this.socket?.close();
     }
 }

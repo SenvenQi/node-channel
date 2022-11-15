@@ -1,40 +1,26 @@
-import { ClientChannel, IOption } from "../../client/clientChannel";
-import {Event} from "../../event";
-import {Socket, SocketConstructorOpts} from "net"
+import {Channel} from "../../channel";
+import {Buffer} from "buffer";
+import {Connector} from "./conenctor";
 
-class SocketOptions {
-    socketConstructorOpts:SocketConstructorOpts
-    path:string;
-}
+export class SocketClient implements Channel{
 
+    private channel:Channel;
 
-class SocketChannel implements ClientChannel{
+    receive: (e:Buffer) => void
 
-    private socket:Socket;
-
-    constructor(option:IOption<SocketOptions>) {
-        this.option = option;
+    getConnector():Connector {
+        return  new Connector({})
     }
 
-    onData: Event<any>;
-    state: boolean;
-    option:IOption<SocketOptions>;
-    connect(): void {
-        this.socket = new Socket(this.option.args.socketConstructorOpts)
-       // this.socket.on("connect",this.onData)
-       // this.socket.on("ready",this.onData)
-       // this.socket.on("timeout",this.onData)
-       // this.socket.on("end",this.onData)
-       // this.socket.on("close",this.onData)
-        this.socket.on("data",this.onData.bind(this))
-       // this.socket.on("error",this.onData)
-       // this.socket.on("lookup",this.onData)
-       // this.socket.on("drain",this.onData)
-        this.socket.connect(this.option.args.path);
+    async connect(path:string):Promise<void>{
+        const connector = this.getConnector()
+        const connectState = await connector.connect(path)
+        this.channel = connectState.createChannel()
+        this.channel.receive = this.receive;
     }
 
-    disConnect(): void {
-        this.socket?.destroy();
+    send(buffer): void {
+        this.channel.send(buffer)
     }
 }
 
