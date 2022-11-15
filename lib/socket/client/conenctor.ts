@@ -10,9 +10,9 @@ export class Connector {
     }
 
     async connect(ipEndpoint:string): Promise<ConnectState> {
-        const socket = new Socket(this.option)
-        const promiseSocket = new PromiseSocket(socket)
-        await promiseSocket.connect(ipEndpoint)
-        return new ConnectState();
+        const promiseSocket = new PromiseSocket()
+        promiseSocket.setTimeout(5000)
+        await promiseSocket.connect(10001,ipEndpoint)
+        return new ConnectState(promiseSocket);
     }
 }

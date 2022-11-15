@@ -1,4 +1,3 @@
-import {Event} from "../../event";
 import {Server, ServerOpts, Socket} from "net"
 import { ServerChannel } from "../../serverChannel";
 class SocketOptions {
@@ -16,7 +15,6 @@ class SocketChannel implements ServerChannel{
         this.option = option;
     }
 
-    onData: Event<any>;
     state: boolean;
     option:SocketOptions;
     error(error:Error):void {

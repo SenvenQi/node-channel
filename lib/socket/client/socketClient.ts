@@ -1,14 +1,12 @@
-import {Event} from "../../event";
-import {Socket} from "net"
 import {Channel} from "../../channel";
 import {Buffer} from "buffer";
 import {Connector} from "./conenctor";
 
-export class SocketChannel implements Channel{
+export class SocketClient implements Channel{
 
-    private socket:Socket
+    private channel:Channel;
 
-    receive: Event<Buffer>
+    receive: (e:Buffer) => void
 
     getConnector():Connector {
         return  new Connector({})
@@ -17,11 +15,12 @@ export class SocketChannel implements Channel{
     async connect(path:string):Promise<void>{
         const connector = this.getConnector()
         const connectState = await connector.connect(path)
-        connectState.createChannel()
+        this.channel = connectState.createChannel()
+        this.channel.receive = this.receive;
     }
 
     send(buffer): void {
-        this.socket.write(buffer)
+        this.channel.send(buffer)
     }
 }
 
