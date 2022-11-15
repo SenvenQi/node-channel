@@ -1,16 +1,24 @@
 import {Event} from "../../event";
-import {Socket, SocketConstructorOpts} from "net"
+import {Socket} from "net"
 import {Channel} from "../../channel";
 import {Buffer} from "buffer";
-
-
-
+import {Connector} from "./conenctor";
 
 export class SocketChannel implements Channel{
 
-    private socket:Socket;
+    private socket:Socket
 
-    receive: Event<Buffer>;
+    receive: Event<Buffer>
+
+    getConnector():Connector {
+        return  new Connector({})
+    }
+
+    async connect(path:string):Promise<void>{
+        const connector = this.getConnector()
+        const connectState = await connector.connect(path)
+        connectState.setupChannel()
+    }
 
     send(buffer): void {
         this.socket.write(buffer)
