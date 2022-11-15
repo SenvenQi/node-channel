@@ -17,7 +17,7 @@ export class SocketChannel implements Channel{
     async connect(path:string):Promise<void>{
         const connector = this.getConnector()
         const connectState = await connector.connect(path)
-        connectState.setupChannel()
+        connectState.createChannel()
     }
 
     send(buffer): void {

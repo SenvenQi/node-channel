@@ -6,10 +6,4 @@ export interface Channel{
     receive:Event<Buffer>
 }
 
-interface IChannelManager{
-    channels: Channel[]
-    add:()=>{}
-    remove:()=>{}
-}
-
 
