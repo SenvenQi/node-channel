@@ -1,7 +1,6 @@
 import {Channel} from "./channel";
-import {Transform, Duplex, Readable, Writable, TransformCallback} from "stream";
-import {BaseFilter,Filter} from "./filter";
-import * as buffer from "buffer";
+import {Duplex} from "stream";
+import {BaseFilter} from "./filter";
 
 export class BaseChannel<R> extends Duplex implements Channel{
     private readonly duplex:Duplex
