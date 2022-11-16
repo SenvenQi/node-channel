@@ -4,7 +4,7 @@ import {Socket} from "net";
 import PromiseSocket from "promise-socket";
 import {BaseChannel} from "../../baseChannel";
 
-export class TcpChannel extends BaseChannel{
+export class TcpChannel extends BaseChannel<string>{
 
     constructor(socketTemp: Socket) {
         super(socketTemp)

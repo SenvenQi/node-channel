@@ -1,27 +1,13 @@
 import { Buffer } from 'buffer'
-import {Duplex} from "stream";
 
 export interface Filter<T>{
     filter(buffer:Buffer):T
 }
 
-export class BaseFiler extends Duplex implements Filter<string> {
+export class BaseFilter<R> implements Filter<R> {
     private buffer:Buffer;
-    readable:boolean = true
-    constructor() {
-        super();
-        this.pipe(process.stdout)
-    }
-    _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-         this.push(this.filter(chunk))
-         callback()
-    }
 
-    _read(size: number) {
-       this.resume()
-    }
-
-    filter(buffer:Buffer): string {
+    filter(buffer:Buffer): R{
         let result;
         if (!this.buffer)
            this.buffer = Buffer.from(buffer)
