@@ -1,5 +1,4 @@
 import {Socket, SocketConstructorOpts} from "net";
-import PromiseSocket from "promise-socket";
 import {ConnectState} from "./connectState";
 
 export class Connector {

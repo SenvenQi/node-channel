@@ -5,14 +5,15 @@ export interface Filter<T>{
     filter(buffer:Buffer):T
 }
 
-export class BaseFiler extends Duplex implements Filter<Buffer> {
+export class BaseFiler extends Duplex implements Filter<string> {
     private buffer:Buffer;
     readable:boolean = true
     constructor() {
         super();
+        this.pipe(process.stdout)
     }
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-         this.push({})
+         this.push(this.filter(chunk))
          callback()
     }
 
@@ -20,11 +21,16 @@ export class BaseFiler extends Duplex implements Filter<Buffer> {
        this.resume()
     }
 
-    filter(buffer:Buffer): Buffer {
-         if (!this.buffer)
+    filter(buffer:Buffer): string {
+        let result;
+        if (!this.buffer)
            this.buffer = Buffer.from(buffer)
         else
             this.buffer = Buffer.concat([this.buffer,buffer])
-        return buffer
+        if (this.buffer.length >=20){
+            result = this.buffer.slice(0,20).toString()
+            this.buffer =  this.buffer.subarray(20)
+        }
+        return result
     }
 }
