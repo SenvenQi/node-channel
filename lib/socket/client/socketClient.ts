@@ -16,7 +16,6 @@ export class SocketClient implements Channel{
         const connector = this.getConnector()
         const connectState = await connector.connect(path)
         this.channel = connectState.createChannel()
-        this.channel.receive = this.receive;
     }
 
     send(buffer): void {
