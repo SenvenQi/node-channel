@@ -2,8 +2,8 @@ import { SocketClient } from "./lib/socket/client/socketClient";
 
 const socket = new SocketClient()
 async function run(){
-    await socket.connect("192.168.1.39")
-    socket.receive = buffer=>console.log(buffer)
+    await socket.connect("192.168.1.60")
+    socket.receive(buffer => console.log(buffer))
 }
 
 run().then(r =>{});
