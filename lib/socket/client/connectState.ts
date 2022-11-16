@@ -1,11 +1,10 @@
 import {Socket} from "net";
-import PromiseSocket from "promise-socket";
 import {TcpChannel} from "./tcpChannel";
 
 export class ConnectState{
-    public socket:PromiseSocket<Socket>
+    public socket:Socket
 
-    constructor(socket:PromiseSocket<Socket>) {
+    constructor(socket:Socket) {
         this.socket = socket
     }
 
