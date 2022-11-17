@@ -1,12 +1,15 @@
 import {Channel} from "../../channel";
 import {Buffer} from "buffer";
 import {Connector} from "./conenctor";
+import {BaseChannel} from "../../baseChannel";
 
-export class SocketClient implements Channel{
+export class SocketClient{
 
-    private channel:Channel;
+    private channel:BaseChannel<string>;
 
-    receive: (e:Buffer) => void
+    receive(action){
+        this.channel.on("data",action)
+    }
 
     getConnector():Connector {
         return  new Connector({})
