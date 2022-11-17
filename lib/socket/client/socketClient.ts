@@ -17,7 +17,7 @@ export class SocketClient {
     async connect(path:string):Promise<void>{
         const connector = this.getConnector()
         try {
-             const connectState = await connector.connect(path)
+            const connectState = await connector.connect(path)
             this.channel = connectState.createChannel()
         }catch (e) {
             console.log(e);
