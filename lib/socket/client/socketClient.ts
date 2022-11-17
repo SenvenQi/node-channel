@@ -1,11 +1,10 @@
-import {Channel} from "../../channel";
-import {Buffer} from "buffer";
 import {Connector} from "./conenctor";
 import {BaseChannel} from "../../baseChannel";
 
-export class SocketClient{
+export class SocketClient {
 
     private channel:BaseChannel<string>;
+
 
     receive(action){
         this.channel.on("data",action)
