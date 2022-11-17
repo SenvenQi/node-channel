@@ -14,13 +14,15 @@ export class SocketClient {
         return  new Connector({})
     }
 
-    async connect(path:string):Promise<void>{
+    async connect(path:string):Promise<boolean>{
         const connector = this.getConnector()
         try {
             const connectState = await connector.connect(path)
             this.channel = connectState.createChannel()
+            return true;
         }catch (e) {
             console.log(e);
+            return false
         }
     }
 
