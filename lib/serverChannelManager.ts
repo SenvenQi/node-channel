@@ -14,7 +14,7 @@ export abstract class ServerChannelManagerImpl implements ServerChannelManager{
     private sessions: Session[];
 
     add<T>(options:T): string{
-        const session = SessionFactory(SessionImpl)
+        const session = SessionFactory(SessionImpl,[])
         this.sessions.push(session)
         return session.id
     }
