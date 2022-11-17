@@ -12,10 +12,14 @@ export class Connector {
     async connect(ipEndpoint:string): Promise<ConnectState> {
         const socket = new Socket()
         return  new Promise((resolve,reject)=>{
-            socket.once("error",(error)=>{
+            const listener = (error)=>{
                 reject(error)
-            })
-            socket.connect(10001,ipEndpoint,()=>resolve(new ConnectState(socket)));
+            }
+            socket.once("error",listener)
+            socket.connect(10001,ipEndpoint,()=>{
+                socket.removeListener("error",listener);
+                resolve(new ConnectState(socket))
+            });
         })
     }
 }

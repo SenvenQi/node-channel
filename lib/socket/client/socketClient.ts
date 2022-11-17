@@ -7,7 +7,7 @@ export class SocketClient {
 
 
     receive(action){
-        this.channel.on("data",action)
+        this.channel?.on("data",action)
     }
 
     getConnector():Connector {
@@ -16,12 +16,16 @@ export class SocketClient {
 
     async connect(path:string):Promise<void>{
         const connector = this.getConnector()
-        const connectState = await connector.connect(path)
-        this.channel = connectState.createChannel()
+        try {
+             const connectState = await connector.connect(path)
+            this.channel = connectState.createChannel()
+        }catch (e) {
+            console.log(e);
+        }
     }
 
     send(buffer): void {
-        this.channel.send(buffer)
+        this.channel?.send(buffer)
     }
 }
 

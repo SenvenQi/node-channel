@@ -24,7 +24,7 @@ export class BaseChannel<R> extends Duplex implements Channel{
     }
 
     send(buffer): void {
-        this.push(buffer);
+        this.duplex.write(buffer);
     }
 
 }
