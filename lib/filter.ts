@@ -1,13 +1,13 @@
 import { Buffer } from 'buffer'
 
 export interface Filter<T>{
-    filter(buffer:Buffer):T
+    decodePackage(buffer:Buffer):T
 }
 
 export class BaseFilter<R> implements Filter<R> {
     private buffer:Buffer;
 
-    filter(buffer:Buffer): R{
+    decodePackage(buffer:Buffer): R{
         let result;
         if (!this.buffer)
            this.buffer = Buffer.from(buffer)

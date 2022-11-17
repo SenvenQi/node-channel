@@ -13,7 +13,7 @@ export class BaseChannel<R> extends Duplex implements Channel{
     }
 
      _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-         const result = this.filter.filter(chunk);
+         const result = this.filter.decodePackage(chunk);
          if (result)
             this.push(result)
          callback()
