@@ -4,6 +4,7 @@ import { v4 as uuid4 } from 'uuid';
 export interface Session{
     id:string
     channel:Channel
+    send<T>(message:T)
 }
 
 
@@ -14,5 +15,9 @@ export class SessionImpl implements Session {
     constructor(channel:Channel) {
         this.channel = channel
         this.id = uuid4()
+    }
+
+    send<T>(message: T) {
+        this.channel.send(message)
     }
 }
