@@ -5,10 +5,11 @@ import {BaseFilter} from "./filter";
 export class BaseChannel<R> extends Duplex implements Channel{
     private readonly duplex:Duplex
     private readonly filter:BaseFilter<R> = new BaseFilter<R>()
+
     constructor(duplex:Duplex) {
-        super();
+        super({readableObjectMode:true});
         this.duplex = duplex
-        this.duplex.pipe(this).pipe(process.stdout)
+        this.duplex.pipe(this)
     }
 
      _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {

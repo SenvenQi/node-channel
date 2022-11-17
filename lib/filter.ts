@@ -13,10 +13,8 @@ export class BaseFilter<R> implements Filter<R> {
            this.buffer = Buffer.from(buffer)
         else
             this.buffer = Buffer.concat([this.buffer,buffer])
-        if (this.buffer.length >=20){
-            result = this.buffer.slice(0,20).toString()
-            this.buffer =  this.buffer.subarray(20)
-        }
-        return result
+        result = this.buffer.toString()
+        this.buffer =  this.buffer.subarray(this.buffer.length)
+        return result.toString()
     }
 }

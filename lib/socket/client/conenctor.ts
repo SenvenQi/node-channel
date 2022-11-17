@@ -1,5 +1,6 @@
 import {Socket, SocketConstructorOpts} from "net";
 import {ConnectState} from "./connectState";
+import {rejects} from "assert";
 
 export class Connector {
     private readonly option:SocketConstructorOpts;
@@ -8,9 +9,13 @@ export class Connector {
         this.option = option
     }
 
-    connect(ipEndpoint:string): ConnectState {
+    async connect(ipEndpoint:string): Promise<ConnectState> {
         const socket = new Socket()
-        socket.connect(10001, ipEndpoint)
-        return new ConnectState(socket);
+        return  new Promise((resolve,reject)=>{
+            socket.once("error",(error)=>{
+                reject(error)
+            })
+            socket.connect(10001,ipEndpoint,()=>resolve(new ConnectState(socket)));
+        })
     }
 }
