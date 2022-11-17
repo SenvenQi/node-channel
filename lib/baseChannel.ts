@@ -9,7 +9,6 @@ export class BaseChannel<R> extends Duplex implements Channel{
         super();
         this.duplex = duplex
         this.duplex.pipe(this).pipe(process.stdout)
-
     }
 
      _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
