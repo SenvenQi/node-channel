@@ -1,10 +1,5 @@
 import { SocketClient } from "./lib/socket/client/socketClient";
-import {ClientChannelManagerImpl} from "./lib/clientChannelManager";
-import {SessionImpl} from "./lib/session";
 
-
-const manager = new ClientChannelManagerImpl()
-manager.add(new SessionImpl(new SocketClient()))
 const socket = new SocketClient()
 async function run(){
     await socket.connect("192.168.1.39")

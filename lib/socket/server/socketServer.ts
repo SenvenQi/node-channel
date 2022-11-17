@@ -1,12 +1,12 @@
 import {Server, ServerOpts, Socket} from "net"
-import { ServerChannel } from "../../serverChannel";
+import {ServerChannelManager} from "../../serverChannelManager";
 class SocketOptions {
     socketConstructorOpts:ServerOpts
     path:string;
 }
 
 
-class SocketChannel implements ServerChannel{
+class SocketChannel implements ServerChannelManager{
 
     private socket:Server;
 

@@ -1,7 +1,6 @@
-import { Buffer } from "buffer";
 
 export interface Channel{
-    send(buffer:Buffer):void
+    send<T>(buffer:T):void
 }
 
 
