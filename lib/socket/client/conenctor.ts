@@ -1,6 +1,5 @@
 import {Socket, SocketConstructorOpts} from "net";
 import {ConnectState} from "./connectState";
-import {rejects} from "assert";
 
 export class Connector {
     private readonly option:SocketConstructorOpts;
