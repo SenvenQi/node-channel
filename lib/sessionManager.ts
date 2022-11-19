@@ -1,5 +1,6 @@
 import {Session, SessionImpl} from "./session";
 import {Duplex} from "stream";
+import {SocketClient} from "./socket/client/socketClient";
 
 export interface ISessionManager{
     add(duplex:Duplex): string
@@ -11,7 +12,7 @@ export class SessionManager implements ISessionManager{
     private sessions: Map<string,Session>;
 
     add(duplex:Duplex): string{
-        const session = new SessionImpl(duplex);
+        const session = new SocketClient(duplex);
         this.sessions.set(session.id,session)
         return session.id
     }

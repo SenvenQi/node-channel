@@ -16,7 +16,7 @@ export interface Event<T> {
 export abstract class SessionImpl implements Session{
     channel: Duplex;
     id: string;
-    onMessage:Event<any>
+    onMessage:Event<any>= (buffer:any)=>{}
 
     constructor(channel:Duplex) {
         this.channel = channel

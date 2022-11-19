@@ -5,5 +5,5 @@ import {Socket} from "net";
 
 const sessionManager = new SessionManager();
 
-sessionManager.add(new SocketClient(new Socket()))
+sessionManager.add(new Socket())
 
