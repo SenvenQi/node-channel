@@ -1,6 +1,5 @@
-import {Session, SessionConstructor, SessionImpl} from "./session";
+import {Session, SessionConstructor } from "./session";
 import {Duplex} from "stream";
-import {SocketClient} from "./socket/client/socketClient";
 
 export interface ISessionManager{
     add(ctor:SessionConstructor,duplex:Duplex): string
