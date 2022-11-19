@@ -1,8 +1,10 @@
-import { Session } from "./session";
+import {Channel, ChannelConstructor} from "./channel";
+import {Session, SessionImpl} from "./session";
 
 
-export function SessionFactory<T extends Session>(ctor: new (...args: any[]) => T,args:any[]){
-    return new ctor(args);
+export function SessionFactory(ctor: ChannelConstructor<any>,args?:any[]):Session{
+    const channel = new ctor(args);
+    return new SessionImpl(channel)
 }
 
 

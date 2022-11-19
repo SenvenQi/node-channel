@@ -1,8 +1,9 @@
-import {Session, SessionImpl} from "./session";
-import {SocketClient} from "./socket/client/socketClient";
+import {Session} from "./session";
+import {SessionFactory} from "./sessionFactory";
+import { ChannelConstructor} from "./channel";
 
 export interface ISessionManager{
-    add<T>(options:T):string
+    add<T>(ctor:ChannelConstructor<T>,options:T):string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
@@ -10,8 +11,9 @@ export interface ISessionManager{
 export abstract class SessionManager implements ISessionManager{
     private sessions: Session[];
 
-    add<T>(options:T): string{
-        const session = new SessionImpl(new SocketClient())
+    add<T>(ctor:ChannelConstructor<any>,options:T): string{
+        let session: Session;
+        session = SessionFactory(ctor);
         this.sessions.push(session)
         return session.id
     }
