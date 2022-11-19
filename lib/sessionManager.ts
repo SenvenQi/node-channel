@@ -1,28 +1,28 @@
-import {Session} from "./session";
-import {SessionFactory} from "./sessionFactory";
-import { ChannelConstructor} from "./channel";
+import {Session, SessionImpl} from "./session";
+import {Duplex} from "stream";
+import {Filter} from "./filter";
 
 export interface ISessionManager{
-    add<T>(ctor:ChannelConstructor<T>,options:T):string
+    add<T extends Filter<R>,R>(duplex:Duplex): string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
 
-export abstract class SessionManager implements ISessionManager{
-    private sessions: Session[];
+export class SessionManager implements ISessionManager{
+    private sessions: Map<string,Session>;
 
-    add<T>(ctor:ChannelConstructor<any>,options:T): string{
+    add<T extends Filter<R>,R>(duplex:Duplex): string{
         let session: Session;
-        session = SessionFactory(ctor);
-        this.sessions.push(session)
+        session = new SessionImpl(duplex);
+        this.sessions.set(session.id,session)
         return session.id
     }
 
     remove(id:string): void {
-        this.sessions = this.sessions.filter(x=>x.id != id)
+        this.sessions.delete(id)
     }
 
     send<T>(id:string,message: T): void {
-        this.sessions.find(x=>x.id == id).channel.send(message);
+        this.sessions.get(id).send(message);
     }
 }

@@ -1,6 +1,5 @@
 import {Session, SessionImpl} from "./session";
-import {SocketClient} from "./socket/client/socketClient";
-import {SessionFactory} from "./sessionFactory";
+import {SessionManager} from "./sessionManager";
 
 export interface ServerChannelManager {
     listen(): void
@@ -10,22 +9,7 @@ export interface ServerChannelManager {
     state: boolean
 }
 
-export abstract class ServerChannelManagerImpl implements ServerChannelManager{
-    private sessions: Session[];
-
-    add<T>(options:T): string{
-        const session = SessionFactory(SessionImpl,[])
-        this.sessions.push(session)
-        return session.id
-    }
-
-    remove(id:string): void {
-        this.sessions = this.sessions.filter(x=>x.id != id)
-    }
-
-    send<T>(id:string,message: T): void {
-        this.sessions.find(x=>x.id == id).channel.send(message);
-    }
+export abstract class ServerChannelManagerImpl extends SessionManager implements ServerChannelManager{
 
     abstract state: boolean;
 

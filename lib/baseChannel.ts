@@ -1,12 +1,11 @@
-import {Channel} from "./channel";
 import {Duplex} from "stream";
 import {BaseFilter} from "./filter";
 
-export class BaseChannel<R> extends Duplex implements Channel{
+export abstract class BaseChannel<R> extends Duplex {
     private readonly duplex:Duplex
     private readonly filter:BaseFilter<R> = new BaseFilter<R>()
 
-    constructor(duplex:Duplex) {
+    protected constructor(duplex:Duplex) {
         super({readableObjectMode:true});
         this.duplex = duplex
         this.duplex.pipe(this)
