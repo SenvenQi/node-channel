@@ -4,10 +4,6 @@ import {SessionImpl} from "../../session";
 
 export class SocketClient extends SessionImpl{
 
-    receive(action){
-        this.channel?.on("data",action)
-    }
-
     getConnector():Connector {
         return  new Connector({})
     }
