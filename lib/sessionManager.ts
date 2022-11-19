@@ -1,9 +1,8 @@
 import {Session, SessionImpl} from "./session";
 import {Duplex} from "stream";
-import {Filter} from "./filter";
 
 export interface ISessionManager{
-    add<T extends Filter<R>,R>(duplex:Duplex): string
+    add(duplex:Duplex): string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
@@ -11,9 +10,8 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     private sessions: Map<string,Session>;
 
-    add<T extends Filter<R>,R>(duplex:Duplex): string{
-        let session: Session;
-        session = new SessionImpl(duplex);
+    add(duplex:Duplex): string{
+        const session = new SessionImpl(duplex);
         this.sessions.set(session.id,session)
         return session.id
     }

@@ -9,7 +9,7 @@ export interface Session{
 }
 
 
-export class SessionImpl implements Session{
+export abstract class SessionImpl implements Session{
     channel: Duplex;
     id: string;
 

@@ -3,7 +3,7 @@ import {BaseFilter} from "./filter";
 
 export abstract class BaseChannel<R> extends Duplex {
     private readonly duplex:Duplex
-    private readonly filter:BaseFilter<R> = new BaseFilter<R>()
+    private readonly filter:BaseFilter = new BaseFilter()
 
     protected constructor(duplex:Duplex) {
         super({readableObjectMode:true});

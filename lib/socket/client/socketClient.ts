@@ -1,10 +1,8 @@
 import {Connector} from "./conenctor";
 import {BaseChannel} from "../../baseChannel";
+import {SessionImpl} from "../../session";
 
-export class SocketClient {
-
-    private channel:BaseChannel<string>;
-
+export class SocketClient extends SessionImpl{
 
     receive(action){
         this.channel?.on("data",action)
@@ -24,10 +22,6 @@ export class SocketClient {
             console. log(e);
             return false
         }
-    }
-
-    send(buffer): void {
-        this.channel?.send(buffer)
     }
 }
 
