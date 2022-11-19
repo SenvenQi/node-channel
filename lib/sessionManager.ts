@@ -1,9 +1,9 @@
-import {Session, SessionImpl} from "./session";
+import {Session, SessionConstructor, SessionImpl} from "./session";
 import {Duplex} from "stream";
 import {SocketClient} from "./socket/client/socketClient";
 
 export interface ISessionManager{
-    add(duplex:Duplex): string
+    add(ctor:SessionConstructor,duplex:Duplex): string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
@@ -11,8 +11,8 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     private sessions: Map<string,Session>;
 
-    add(duplex:Duplex): string{
-        const session = new SocketClient(duplex);
+    add(ctor:SessionConstructor,duplex:Duplex): string{
+        const session = new ctor(duplex);
         this.sessions.set(session.id,session)
         return session.id
     }

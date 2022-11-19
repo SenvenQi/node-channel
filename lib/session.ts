@@ -12,6 +12,9 @@ export interface Event<T> {
     (listener:T):void
 }
 
+export interface SessionConstructor{
+    new ( channel: Duplex) : Session;
+}
 
 export abstract class SessionImpl implements Session{
     channel: Duplex;
