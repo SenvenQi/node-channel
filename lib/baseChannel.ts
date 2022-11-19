@@ -1,9 +1,9 @@
 import {Duplex} from "stream";
-import {BaseFilter} from "./filter";
+import {StringFilter} from "./filter";
 
 export abstract class BaseChannel<R> extends Duplex {
     private readonly duplex:Duplex
-    private readonly filter:BaseFilter = new BaseFilter()
+    private readonly filter:StringFilter= new StringFilter()
 
     protected constructor(duplex:Duplex) {
         super({readableObjectMode:true});
