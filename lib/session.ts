@@ -8,14 +8,20 @@ export interface Session{
     send<T>(message:T)
 }
 
+export interface Event<T> {
+    (listener:T):void
+}
+
 
 export abstract class SessionImpl implements Session{
     channel: Duplex;
     id: string;
+    onMessage:Event<any>
 
     constructor(channel:Duplex) {
         this.channel = channel
         this.id = uuid4()
+        this.channel.on("data",this.onMessage)
     }
 
     send<T>(message: T) {
