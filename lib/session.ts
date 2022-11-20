@@ -6,6 +6,7 @@ export interface Session{
     id:string
     channel:Duplex
     send<T>(message:T)
+    open(path:string)
 }
 
 export interface Event<T> {
@@ -19,15 +20,19 @@ export interface SessionConstructor{
 export abstract class SessionImpl implements Session{
     channel: Duplex;
     id: string;
-    onMessage:Event<any>= (buffer:any)=>{}
+    onMessage:Event<any>= (buffer:any)=>{
+        console.log(buffer)
+    }
 
     constructor(channel:Duplex) {
         this.channel = channel
         this.id = uuid4()
-        this.channel.on("data",this.onMessage)
+
     }
 
     send<T>(message: T) {
         this.channel.write(message)
     }
+
+    abstract open(path:string)
 }

@@ -8,7 +8,7 @@ export interface ISessionManager{
 }
 
 export class SessionManager implements ISessionManager{
-    private sessions: Map<string,Session>;
+    private sessions: Map<string,Session> = new Map<string, Session>();
 
     add(ctor:SessionConstructor,duplex:Duplex): string{
         const session = new ctor(duplex);
@@ -22,5 +22,9 @@ export class SessionManager implements ISessionManager{
 
     send<T>(id:string,message: T): void {
         this.sessions.get(id).send(message);
+    }
+
+    async connect(sessionId: string) {
+        await this.sessions.get(sessionId).open("192.168.1.60")
     }
 }

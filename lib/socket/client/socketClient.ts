@@ -1,5 +1,4 @@
 import {Connector} from "./conenctor";
-import {BaseChannel} from "../../baseChannel";
 import {SessionImpl} from "../../session";
 
 export class SocketClient extends SessionImpl{
@@ -15,9 +14,14 @@ export class SocketClient extends SessionImpl{
             this.channel = connectState.createChannel()
             return true;
         }catch (e) {
-            console. log(e);
+            console.log(e);
             return false
         }
+    }
+
+    async open(path:string){
+        await this.connect(path)
+        this.channel.on("data",this.onMessage)
     }
 }
 
