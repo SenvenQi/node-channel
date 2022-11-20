@@ -8,7 +8,10 @@ const sessionManager = new SessionManager();
 
 const sessionId = sessionManager.add(SocketClient, new TcpChannel(new Socket()))
 sessionManager.connect(sessionId).then(()=>{
-   sessionManager.send(sessionId, Buffer.from("hello"))
+   setInterval(()=>{
+     sessionManager.send(sessionId, Buffer.from("hello"))
+
+   },3000)
 })
 
 

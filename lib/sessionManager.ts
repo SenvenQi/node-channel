@@ -1,5 +1,6 @@
 import {Session, SessionConstructor } from "./session";
 import {Duplex} from "stream";
+import {BaseChannel} from "./baseChannel";
 
 export interface ISessionManager{
     add(ctor:SessionConstructor,duplex:Duplex): string
@@ -10,8 +11,8 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     private sessions: Map<string,Session> = new Map<string, Session>();
 
-    add(ctor:SessionConstructor,duplex:Duplex): string{
-        const session = new ctor(duplex);
+    add(ctor:SessionConstructor,channel:BaseChannel): string{
+        const session = new ctor(channel);
         this.sessions.set(session.id,session)
         return session.id
     }

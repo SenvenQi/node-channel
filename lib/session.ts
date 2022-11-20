@@ -1,5 +1,6 @@
 import { v4 as uuid4 } from 'uuid';
 import {Duplex} from "stream";
+import {BaseChannel} from "./baseChannel";
 
 
 export interface Session{
@@ -14,24 +15,24 @@ export interface Event<T> {
 }
 
 export interface SessionConstructor{
-    new ( channel: Duplex) : Session;
+    new ( channel: BaseChannel) : Session;
 }
 
 export abstract class SessionImpl implements Session{
-    channel: Duplex;
+    channel: BaseChannel;
     id: string;
     onMessage:Event<any>= (buffer:any)=>{
         console.log(buffer)
     }
 
-    constructor(channel:Duplex) {
+    constructor(channel:BaseChannel) {
         this.channel = channel
         this.id = uuid4()
 
     }
 
     send<T>(message: T) {
-        this.channel.write(message)
+        this.channel.send(message)
     }
 
     abstract open(path:string)
