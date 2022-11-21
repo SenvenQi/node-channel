@@ -1,4 +1,3 @@
-import {Session, SessionImpl} from "./session";
 import {SessionManager} from "./sessionManager";
 
 export interface ServerChannelManager {

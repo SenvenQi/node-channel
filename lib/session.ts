@@ -7,7 +7,7 @@ export interface Session{
     id:string
     channel:Duplex
     send<T>(message:T)
-    open(path:string)
+    open()
 }
 
 export interface Event<T> {
@@ -35,5 +35,5 @@ export abstract class SessionImpl implements Session{
         this.channel.send(message)
     }
 
-    abstract open(path:string)
+    abstract open()
 }

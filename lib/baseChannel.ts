@@ -1,8 +1,10 @@
 import {Duplex} from "stream";
 import {StringFilter} from "./filter";
-
+export interface ChannelConstructor{
+    new ():BaseChannel
+}
 export abstract class BaseChannel extends Duplex {
-    private readonly duplex:Duplex
+    protected readonly duplex:Duplex
     private readonly filter:StringFilter= new StringFilter()
 
     protected constructor(duplex:Duplex) {

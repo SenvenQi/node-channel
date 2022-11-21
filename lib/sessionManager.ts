@@ -1,9 +1,8 @@
 import {Session, SessionConstructor } from "./session";
-import {Duplex} from "stream";
-import {BaseChannel} from "./baseChannel";
+import {ChannelConstructor} from "./baseChannel";
 
 export interface ISessionManager{
-    add(ctor:SessionConstructor,duplex:Duplex): string
+    add(ctor:SessionConstructor,channel:ChannelConstructor): string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
@@ -11,8 +10,8 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     private sessions: Map<string,Session> = new Map<string, Session>();
 
-    add(ctor:SessionConstructor,channel:BaseChannel): string{
-        const session = new ctor(channel);
+    add(ctor:SessionConstructor,channel:ChannelConstructor): string{
+        const session = new ctor(new channel());
         this.sessions.set(session.id,session)
         return session.id
     }
@@ -26,6 +25,6 @@ export class SessionManager implements ISessionManager{
     }
 
     async connect(sessionId: string) {
-        await this.sessions.get(sessionId).open("192.168.1.60")
+        await this.sessions.get(sessionId).open()
     }
 }

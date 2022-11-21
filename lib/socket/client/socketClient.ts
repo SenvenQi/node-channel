@@ -1,26 +1,22 @@
-import {Connector} from "./conenctor";
 import {SessionImpl} from "../../session";
+import {TcpChannel} from "./tcpChannel";
 
 export class SocketClient extends SessionImpl{
 
-    getConnector():Connector {
-        return  new Connector({})
-    }
-
-    async connect(path:string):Promise<boolean>{
-        const connector = this.getConnector()
+    async connect():Promise<boolean>{
+        const channel = this.channel as TcpChannel
         try {
-            const connectState = await connector.connect(path)
-            this.channel = connectState.createChannel()
-            return true;
+            await channel.connect("192.168.1.34")
+            this.channel = channel
+            return true
         }catch (e) {
             console.log(e);
             return false
         }
     }
 
-    async open(path:string){
-        await this.connect(path)
+    async open(){
+        await this.connect()
         this.channel.on("data",this.onMessage)
     }
 }
