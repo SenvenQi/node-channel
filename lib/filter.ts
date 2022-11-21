@@ -4,6 +4,7 @@ export interface Filter{
     decodePackage(buffer:Buffer):any
 }
 
+
 export class StringFilter implements Filter {
     private buffer:Buffer;
 

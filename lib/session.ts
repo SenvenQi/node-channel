@@ -1,6 +1,7 @@
 import { v4 as uuid4 } from 'uuid';
 import {Duplex} from "stream";
 import {BaseChannel} from "./baseChannel";
+import {Filter} from "./filter";
 
 
 export interface Session{

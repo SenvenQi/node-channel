@@ -1,10 +1,11 @@
 import {Buffer} from "buffer";
 import {Socket} from "net";
 import {BaseChannel} from "../../baseChannel";
+import {StringFilter} from "../../filter";
 
 export class TcpChannel extends BaseChannel{
     constructor() {
-        super(new Socket())
+        super(new Socket(),StringFilter)
     }
     async connect(ipEndpoint:string): Promise<Boolean> {
         const socket = this.duplex as Socket;
