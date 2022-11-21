@@ -32,7 +32,6 @@ export abstract class SessionImpl implements Session{
         this.channel = channel
         this.options = options
         this.id = uuid4()
-
     }
 
     send<T>(message: T) {
