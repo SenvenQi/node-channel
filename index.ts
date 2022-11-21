@@ -15,5 +15,3 @@ sessionManager.connect(sessionId).then(()=>{
      sessionManager.send(sessionId, Buffer.from("hello"))
    },3000)
 })
-
-
