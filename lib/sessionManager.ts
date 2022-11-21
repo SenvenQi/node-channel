@@ -1,5 +1,6 @@
 import {Session, SessionConstructor } from "./session";
 import {ChannelConstructor} from "./baseChannel";
+import { Event } from "./session"
 
 export interface ISessionManager{
     add(ctor:SessionConstructor,channel:ChannelConstructor): string
@@ -22,6 +23,10 @@ export class SessionManager implements ISessionManager{
 
     send<T>(id:string,message: T): void {
         this.sessions.get(id).send(message);
+    }
+
+    onData(id:string,func:Event<any>){
+       this.sessions.get(id).onMessage = func
     }
 
     async connect(sessionId: string) {

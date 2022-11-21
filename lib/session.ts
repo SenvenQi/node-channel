@@ -7,6 +7,7 @@ export interface Session{
     id:string
     channel:Duplex
     send<T>(message:T)
+    onMessage:Event<any>
     open()
 }
 
