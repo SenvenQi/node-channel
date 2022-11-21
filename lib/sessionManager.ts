@@ -3,7 +3,7 @@ import {ChannelConstructor} from "./baseChannel";
 import { Event } from "./session"
 
 export interface ISessionManager{
-    add(ctor:SessionConstructor,channel:ChannelConstructor): string
+    add(ctor:SessionConstructor,channel:ChannelConstructor,options:any): string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
@@ -11,8 +11,8 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     private sessions: Map<string,Session> = new Map<string, Session>();
 
-    add(ctor:SessionConstructor,channel:ChannelConstructor): string{
-        const session = new ctor(new channel());
+    add(ctor:SessionConstructor,channel:ChannelConstructor,options:any): string{
+        const session = new ctor(new channel(),options);
         this.sessions.set(session.id,session)
         return session.id
     }

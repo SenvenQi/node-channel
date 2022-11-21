@@ -6,7 +6,7 @@ export class SocketClient extends SessionImpl{
     async connect():Promise<boolean>{
         const channel = this.channel as TcpChannel
         try {
-            await channel.connect("192.168.1.34")
+            await channel.connect(this.options.address,this.options.port)
             this.channel = channel
             return true
         }catch (e) {

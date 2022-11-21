@@ -6,7 +6,7 @@ import {TcpChannel} from "./lib/socket/client/tcpChannel";
 
 const sessionManager = new SessionManager();
 
-const sessionId = sessionManager.add(SocketClient,TcpChannel)
+const sessionId = sessionManager.add(SocketClient,TcpChannel,{address:"192.168.1.34",port:10001})
 sessionManager.onData(sessionId,(message:any)=>{
        console.log("消息:",message)
 })

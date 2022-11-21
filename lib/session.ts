@@ -17,18 +17,20 @@ export interface Event<T> {
 }
 
 export interface SessionConstructor{
-    new ( channel: BaseChannel) : Session;
+    new ( channel: BaseChannel,options:any) : Session;
 }
 
 export abstract class SessionImpl implements Session{
     channel: BaseChannel;
+    options:any;
     id: string;
     onMessage:Event<any>= (buffer:any)=>{
         console.log(buffer)
     }
 
-    constructor(channel:BaseChannel) {
+    constructor(channel:BaseChannel,options:any) {
         this.channel = channel
+        this.options = options
         this.id = uuid4()
 
     }
