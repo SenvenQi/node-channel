@@ -14,3 +14,6 @@ sessionManager.connect(sessionId).then(() => {
     sessionManager.send(sessionId, Buffer.from("hello"))
   }, 3000)
 })
+sessionManager.onData(sessionId, (message: any) => {
+  console.log("消息测试:", message)
+})
