@@ -12,7 +12,6 @@ class SocketOptions {
 export class SocketServer  extends BaseAppServer{
     private socket:Server;
 
-    private socketClients:Socket[]
     constructor(option:SocketOptions) {
         super(SocketClient,TcpChannel)
         this.option = option;
@@ -24,12 +23,9 @@ export class SocketServer  extends BaseAppServer{
         console.log(error.message)
         this.socket?.close();
     }
-    conection(socket:Socket):void{
-        this.socketClients.push(socket)
-    }
     listen(): void {
         this.socket = new Server(this.option.socketConstructorOpts)
-        this.socket.on("connection",this.conection.bind(this))
+        this.socket.on("connection",(socket:Socket) => this.connection(socket))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)
         // this.socket.on("end",this.onData)
@@ -38,7 +34,7 @@ export class SocketServer  extends BaseAppServer{
         this.socket.on("error",this.error.bind(this))
         // this.socket.on("lookup",this.onData)
         // this.socket.on("drain",this.onData)
-        this.socket.listen(this.option.path);
+        this.socket.listen(8888);
     }
 
     disListen(): void {
