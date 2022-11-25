@@ -1,17 +1,20 @@
 import {Server, ServerOpts, Socket} from "net"
 import {ServerChannelManager} from "../../serverChannelManager";
+import {BaseAppServer} from "../../appServer";
+import {SocketClient} from "./socketClient";
+import { TcpChannel } from "./tcpChannel";
 class SocketOptions {
-    socketConstructorOpts:ServerOpts
+    socketConstructorOpts?:ServerOpts
     path:string;
 }
 
 
-class SocketChannel implements ServerChannelManager{
-
+export class SocketServer  extends BaseAppServer{
     private socket:Server;
 
     private socketClients:Socket[]
     constructor(option:SocketOptions) {
+        super(SocketClient,TcpChannel)
         this.option = option;
     }
 

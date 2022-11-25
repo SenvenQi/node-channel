@@ -4,6 +4,9 @@ export interface ChannelConstructor{
     new ():BaseChannel
 }
 
+export interface ChannelConstructorWithDuplex{
+    new (duplex:Duplex):BaseChannel
+}
 export abstract class BaseChannel extends Duplex {
     protected readonly duplex:Duplex
     private filter:Filter;

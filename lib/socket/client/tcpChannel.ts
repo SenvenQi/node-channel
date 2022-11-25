@@ -15,7 +15,7 @@ export class TcpChannel extends BaseChannel{
                 reject(false)
             }
             socket.once("error",listener)
-            socket.connect(10001,ipEndpoint,()=>{
+            socket.connect(port,ipEndpoint,()=>{
                 socket.removeListener("error",listener);
                 resolve(true)
             });

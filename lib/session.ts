@@ -38,5 +38,7 @@ export abstract class SessionImpl implements Session{
         this.channel.send(message)
     }
 
-    abstract open()
+    open():void{
+
+    }
 }
