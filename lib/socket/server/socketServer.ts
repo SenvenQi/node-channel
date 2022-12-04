@@ -24,7 +24,7 @@ export class SocketServer  extends BaseAppServer{
         this.socket?.close();
     }
     listen(): void {
-        this.socket = new Server(this.option.socketConstructorOpts)
+        this.socket = new Server()
         this.socket.on("connection",(socket:Socket) => this.connection(socket))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)

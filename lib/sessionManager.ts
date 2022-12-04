@@ -9,7 +9,7 @@ export interface ISessionManager{
 }
 
 export class SessionManager implements ISessionManager{
-    protected sessions: Map<string,Session> = new Map<string, Session>();
+    public sessions: Map<string,Session> = new Map<string, Session>();
 
     add(ctor:SessionConstructor,channel:ChannelConstructor,options:any): string{
         const session = new ctor(new channel(),options);
