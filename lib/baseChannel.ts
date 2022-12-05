@@ -17,7 +17,10 @@ export abstract class BaseChannel extends Duplex {
         this.filter = new ctor()
         this.duplex = duplex
         this.duplex.pipe(this)
-        this.duplex.on("close",()=>this.onClose())
+        this.duplex.on("close",()=>{
+            this.onClose()
+            this.destroy()
+        })
     }
 
      _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {

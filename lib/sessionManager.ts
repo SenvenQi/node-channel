@@ -13,6 +13,7 @@ export class SessionManager implements ISessionManager{
 
     add(ctor:SessionConstructor,channel:ChannelConstructor,options:any): string{
         const session = new ctor(new channel(),options);
+        session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
         return session.id
     }
