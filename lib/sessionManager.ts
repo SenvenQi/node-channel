@@ -12,7 +12,7 @@ export class SessionManager implements ISessionManager{
     public sessions: Map<string,Session> = new Map<string, Session>();
 
     add(ctor:SessionConstructor,channel:ChannelConstructor,options:any,...channelArgs:any[]): string{
-        const session = new ctor(new channel(channelArgs),options);
+        const session = new ctor(new channel(...channelArgs),options);
         session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
         return session.id

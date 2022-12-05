@@ -1,10 +1,8 @@
-import {Buffer} from "buffer";
-import {Socket} from "net";
 import {BaseChannel} from "../../baseChannel";
 import {StringFilter} from "../../filter";
 import {SerialPort, SerialPortOpenOptions} from "serialport";
 
-export class TcpChannel extends BaseChannel{
+export class SerialChannel extends BaseChannel{
     constructor(serialPortOpenOptions:SerialPortOpenOptions<any>) {
         super(new SerialPort(serialPortOpenOptions),StringFilter)
     }

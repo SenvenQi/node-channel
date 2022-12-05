@@ -1,7 +1,7 @@
 import {Duplex} from "stream";
 import {Filter, StringFilter} from "./filter";
 export interface ChannelConstructor{
-    new (args?:any[]):BaseChannel
+    new (...args:any[]):BaseChannel
 }
 
 export interface ChannelConstructorWithDuplex{
