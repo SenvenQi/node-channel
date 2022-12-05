@@ -24,3 +24,9 @@ setInterval(()=>{
         console.log(item)
     })
 },3000)
+
+setInterval(()=>{
+    appServer.sessions.forEach((session)=>{
+        session.send(Buffer.from("ccccccccc"))
+    })
+},2000)

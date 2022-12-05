@@ -21,6 +21,7 @@ export class BaseAppServer extends SessionManager implements AppServer {
 
     connection(duplex:Duplex): void {
         const session = new this.ctorSession(new this.ctorChannel(duplex),{});
+        session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
     }
 

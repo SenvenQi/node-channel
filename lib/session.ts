@@ -5,6 +5,7 @@ import {Filter} from "./filter";
 
 
 export interface Session{
+    onClose: Event<any>;
     id:string
     channel:Duplex
     send<T>(message:T)
@@ -27,11 +28,15 @@ export abstract class SessionImpl implements Session{
     onMessage:Event<any>= (buffer:any)=>{
         console.log(buffer)
     }
+    onClose:Event<any> = () => {
+        console.log("socket is closed!")
+    }
 
     constructor(channel:BaseChannel,options:any) {
         this.channel = channel
         this.options = options
         this.id = uuid4()
+        channel.onClose = () => this.onClose(this.id)
     }
 
     send<T>(message: T) {

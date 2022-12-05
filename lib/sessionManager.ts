@@ -29,6 +29,8 @@ export class SessionManager implements ISessionManager{
        this.sessions.get(id).onMessage = func
     }
 
+
+
     async connect(sessionId: string) {
         await this.sessions.get(sessionId).open()
     }
