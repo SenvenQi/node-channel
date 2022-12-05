@@ -1,4 +1,3 @@
-import {Buffer} from "buffer";
 import {Socket} from "net";
 import {BaseChannel} from "../../baseChannel";
 import {StringFilter} from "../../filter";

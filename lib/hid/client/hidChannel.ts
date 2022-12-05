@@ -1,6 +1,5 @@
 import {BaseChannel} from "../../baseChannel";
 import {StringFilter} from "../../filter";
-import {SerialPort, SerialPortOpenOptions} from "serialport";
 import {HidStream} from "../HidStream";
 
 export class HidChannel extends BaseChannel{

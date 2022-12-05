@@ -1,6 +1,6 @@
 import {Duplex} from "stream";
 import {SessionManager} from "./sessionManager";
-import {ChannelConstructor, ChannelConstructorWithDuplex} from "./baseChannel";
+import {ChannelConstructorWithDuplex} from "./baseChannel";
 import {SessionConstructor} from "./session";
 
 export interface AppServer{
