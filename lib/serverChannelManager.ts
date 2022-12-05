@@ -7,12 +7,3 @@ export interface ServerChannelManager {
 
     state: boolean
 }
-
-export abstract class ServerChannelManagerImpl extends SessionManager implements ServerChannelManager{
-
-    abstract state: boolean;
-
-    abstract disListen(): void;
-
-    abstract listen(): void;
-}
