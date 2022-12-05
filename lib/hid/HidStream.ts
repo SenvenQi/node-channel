@@ -9,7 +9,7 @@ export class HidStream extends Duplex {
        this.path = path;
     }
      _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-        this.hid.write(chunk)
+        this.hid.write(chunk);
         callback()
     }
 
@@ -20,7 +20,7 @@ export class HidStream extends Duplex {
     open(){
         this.hid = new HID(this.path);
        this.hid.on("data",(data:Buffer)=>{
-           this.write(data)
+           this.push(data)
        })
     }
 }
