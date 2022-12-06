@@ -8,20 +8,20 @@ import {HidChannel} from "./lib/hid/client/hidChannel";
 import {HidClient} from "./lib/hid/client/hidClient";
 import * as HID from "node-hid";
 import {SerialPort} from "serialport";
-// const sessionManager = new SessionManager();
-//
-// const sessionId = sessionManager.add(SocketClient, TcpChannel, { address: "101.32.205.22", port: 8888})
-// sessionManager.onData(sessionId, (message: any) => {
-//   console.log("消息:", message)
-// })
-// sessionManager.connect(sessionId).then(() => {
-//   setInterval(() => {
-//     sessionManager.send(sessionId, Buffer.from([0x0d,0x0a,0x11,0x11,0x22,0x33]))
-//   }, 3000)
-// })
-// sessionManager.onData(sessionId, (message: any) => {
-//   console.log("消息测试:", message)
-// })
+const sessionManager = new SessionManager();
+
+const sessionId = sessionManager.add(SocketClient, TcpChannel, { address: "101.32.205.22", port: 8888})
+sessionManager.onData(sessionId, (message: any) => {
+  console.log("消息:", message)
+})
+sessionManager.connect(sessionId).then(() => {
+  setInterval(() => {
+    sessionManager.send(sessionId, Buffer.from([0x0d,0x0a,0x11,0x11,0x22,0x33]))
+  }, 3000)
+})
+sessionManager.onData(sessionId, (message: any) => {
+  console.log("消息测试:", message)
+})
 
 // const appServer = new SocketServer({path:"0.0.0.0:8888"})
 // appServer.listen();
@@ -37,29 +37,29 @@ import {SerialPort} from "serialport";
 //     })
 // },2000)
 
-const sessionManager = new SessionManager();
-// SerialPort.list().then(s=>{
-//     console.log(s)
+// const sessionManager = new SessionManager();
+// // SerialPort.list().then(s=>{
+// //     console.log(s)
+// // })
+// const sessionId = sessionManager.add(SerialClient, SerialChannel, {},{
+//   path: '/dev/tty.usbserial-AR0K7IQ6',
+//   baudRate: 115200,
+//   autoOpen: false,
 // })
-const sessionId = sessionManager.add(SerialClient, SerialChannel, {},{
-  path: '/dev/tty.usbserial-AR0K7IQ6',
-  baudRate: 115200,
-  autoOpen: false,
-})
-sessionManager.onData(sessionId, (message: any) => {
-  console.log("消息:", message)
-})
-sessionManager.connect(sessionId).then(() => {
-  setInterval(() => {
-
-    sessionManager.send(sessionId, Buffer.from([
-0x01, 0x10, 0x00, 0x01, 0x00, 0x04, 0x08, 0xD5, 0xC5, 0x20, 0x20, 0xC8, 0xFD, 0x20, 0x20, 0x22, 0xF9
-]))
-  }, 3000)
-})
-sessionManager.onData(sessionId, (message: any) => {
-  console.log("消息测试:", message)
-})
+// sessionManager.onData(sessionId, (message: any) => {
+//   console.log("消息:", message)
+// })
+// sessionManager.connect(sessionId).then(() => {
+//   setInterval(() => {
+//
+//     sessionManager.send(sessionId, Buffer.from([
+// 0x01, 0x10, 0x00, 0x01, 0x00, 0x04, 0x08, 0xD5, 0xC5, 0x20, 0x20, 0xC8, 0xFD, 0x20, 0x20, 0x22, 0xF9
+// ]))
+//   }, 3000)
+// })
+// sessionManager.onData(sessionId, (message: any) => {
+//   console.log("消息测试:", message)
+// })
 
 // const sessionManager = new SessionManager();
 //
