@@ -3,10 +3,15 @@ import {BaseChannel} from "../../baseChannel";
 import {StringFilter} from "../../filter";
 
 export class TcpChannel extends BaseChannel{
-    constructor() {
+    private readonly port:number;
+    private readonly ipEndpoint:string;
+
+    constructor(options:any) {
         super(new Socket(),StringFilter)
+        this.port = options.port
+        this.ipEndpoint = options.ipEndpoint
     }
-    async connect(ipEndpoint:string,port:number): Promise<Boolean> {
+    async connect(): Promise<Boolean> {
         const socket = this.duplex as Socket;
         return  new Promise((resolve,reject)=>{
             const listener = (error)=>{
@@ -14,7 +19,7 @@ export class TcpChannel extends BaseChannel{
                 reject(false)
             }
             socket.once("error",listener)
-            socket.connect(port,ipEndpoint,()=>{
+            socket.connect(this.port,this.ipEndpoint,()=>{
                 socket.removeListener("error",listener);
                 resolve(true)
             });

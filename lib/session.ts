@@ -17,12 +17,11 @@ export interface Event<T> {
 }
 
 export interface SessionConstructor{
-    new ( channel: BaseChannel,options:any) : Session;
+    new ( channel: BaseChannel) : Session;
 }
 
 export abstract class SessionImpl implements Session{
     channel: BaseChannel;
-    options:any;
     id: string;
     onMessage:Event<any>= (buffer:any)=>{
         console.log(buffer)
@@ -31,9 +30,8 @@ export abstract class SessionImpl implements Session{
         console.log("socket is closed!")
     }
 
-    constructor(channel:BaseChannel,options:any) {
+    constructor(channel:BaseChannel) {
         this.channel = channel
-        this.options = options
         this.id = uuid4()
         channel.onClose = () => this.onClose(this.id)
     }
