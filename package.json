@@ -1,5 +1,5 @@
 {
-  "name": "nodechannel",
+  "name": "@sevenqi/nodechannel",
   "version": "1.0.0",
   "description": "nodejs channel",
   "main": "index.js",
