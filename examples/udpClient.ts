@@ -1,7 +1,5 @@
 import {SessionManager} from "../lib/sessionManager";
 import * as HID from "node-hid";
-import {HidClient} from "../lib/hid/client/hidClient";
-import {HidChannel} from "../lib/hid/client/hidChannel";
 import {UdpClient} from "../lib/udp/client/udpClient";
 import {UdpChannel} from "../lib/udp/client/udpChannel";
 
