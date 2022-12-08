@@ -1,0 +1,29 @@
+import {createSocket, Socket} from "dgram";
+import {BaseChannel} from "../../baseChannel";
+import {StringFilter} from "../../filter";
+import {UdpDuplex} from "../udpDuplex";
+
+export class UdpChannel extends BaseChannel{
+    private readonly port:number;
+    private readonly ipEndpoint:string;
+
+    constructor(options:any) {
+        super(new UdpDuplex(createSocket("udp4")),StringFilter)
+        this.port = options.port
+        this.ipEndpoint = options.ipEndpoint
+    }
+    async connect(): Promise<Boolean> {
+        const socket = this.duplex as UdpDuplex;
+        return  new Promise((resolve,reject)=>{
+            const listener = (error)=>{
+                console.log(error)
+                reject(false)
+            }
+            socket.once("error",listener)
+            socket.connect(this.port,this.ipEndpoint,()=>{
+                socket.removeListener("error",listener);
+                resolve(true)
+            });
+        })
+    }
+}
