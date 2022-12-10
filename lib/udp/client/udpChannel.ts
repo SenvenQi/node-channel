@@ -5,12 +5,12 @@ import {UdpDuplex} from "../udpDuplex";
 
 export class UdpChannel extends BaseChannel{
     private readonly port:number;
-    private readonly ipEndpoint:string;
+    private readonly host:string;
 
     constructor(options:any) {
         super(new UdpDuplex(createSocket("udp4")),StringFilter)
         this.port = options.port
-        this.ipEndpoint = options.ipEndpoint
+        this.host = options.host
     }
     async connect(): Promise<Boolean> {
         const socket = this.duplex as UdpDuplex;
@@ -20,7 +20,7 @@ export class UdpChannel extends BaseChannel{
                 reject(false)
             }
             socket.once("error",listener)
-            socket.connect(this.port,this.ipEndpoint,()=>{
+            socket.connect(this.port,this.host,()=>{
                 socket.removeListener("error",listener);
                 resolve(true)
             });

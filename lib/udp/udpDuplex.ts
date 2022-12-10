@@ -6,10 +6,10 @@ export class UdpDuplex extends Duplex{
     private port?:number
     private address?:string
     constructor(udp:Socket) {
-        super();
+        super({ readableObjectMode: true });
         this.udp = udp;
         this.udp.on("message",(msg, rinfo)=>{
-            this.push(msg)
+            this.push({msg:msg,rinfo:rinfo})
         })
     }
     writeData(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): boolean {
@@ -30,5 +30,11 @@ export class UdpDuplex extends Duplex{
         this.port = port
         this.address = host
         this.udp.connect(port,host,connectionListener)
+    }
+
+    bind(port: number, host: string, connectionListener?: () => void){
+        this.port = port
+        this.address = host
+        this.udp.bind(port,host,connectionListener)
     }
 }

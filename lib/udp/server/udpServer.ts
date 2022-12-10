@@ -1,37 +1,33 @@
 import {BindOptions, createSocket, Socket} from "dgram"
-import {BaseAppServer} from "../../appServer";
-import {UdpClient} from "./udpClient";
 import { UdpChannel } from "./udpChannel";
+import {SessionImpl} from "../../session";
 
 
-export class UdpServer extends BaseAppServer{
+export class UdpServer extends SessionImpl{
     private socket:Socket;
-
-    constructor(option:BindOptions) {
-        super(UdpClient,UdpChannel)
-        this.option = option;
+    async connect():Promise<boolean>{
+        const channel = this.channel as UdpChannel
+        try {
+            await channel.connect()
+            this.channel = channel
+            return true
+        }catch (e) {
+            console.log(e);
+            return false
+        }
     }
+
+    async open(){
+        await this.connect()
+        this.channel.on("data",this.onMessage)
+    }
+
 
     state: boolean;
     option:BindOptions;
     error(error:Error):void {
         console.log(error.message)
         this.socket?.close();
-    }
-    listen(): void {
-        this.socket = createSocket("udp4")
-        // this.socket.on("ready",this.onData)
-        // this.socket.on("timeout",this.onData)
-        // this.socket.on("end",this.onData)
-        // this.socket.on("close",this.onData)
-        this.socket.on("message",this.onData.bind(this))
-        this.socket.on("error",this.error.bind(this))
-        // this.socket.on("lookup",this.onData)
-        // this.socket.on("drain",this.onData)
-        this.socket.bind(this.option);
-    }
 
-    disListen(): void {
-        this.socket?.close();
     }
 }
