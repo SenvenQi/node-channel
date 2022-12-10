@@ -12,11 +12,6 @@ export class UdpDuplex extends Duplex{
             this.push({msg:msg,rinfo:rinfo})
         })
     }
-    writeData(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): boolean {
-        this.port = port
-        this.address = address
-        return this.write(msg)
-    }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
         this.udp.send(chunk,this.port,this.address)
