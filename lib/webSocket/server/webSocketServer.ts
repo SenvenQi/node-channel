@@ -4,28 +4,22 @@ import {WebSocketChannel} from "./webSocketChannel";
 import {ServerOptions, WebSocketServer as Server} from "ws";
 import {WebSocketDuplex} from "../webSocketDuplex";
 
-class SocketOptions {
-    socketConstructorOpts?:ServerOptions
-    path:string;
-}
-
-
 export class WebSocketServer extends BaseAppServer{
     private socket:Server;
 
-    constructor(option:SocketOptions) {
+    constructor(option:ServerOptions) {
         super(WebSocketClient,WebSocketChannel)
         this.option = option;
     }
 
     state: boolean;
-    option:SocketOptions;
+    option:ServerOptions;
     error(error:Error):void {
         console.log(error.message)
         this.socket?.close();
     }
     listen(): void {
-        this.socket = new Server({port:9000})
+        this.socket = new Server(this.option)
         this.socket.on("connection",(socket,request) => this.connection(new WebSocketDuplex(socket)))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)

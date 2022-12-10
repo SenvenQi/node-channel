@@ -4,13 +4,13 @@ import {SocketClient} from "./socketClient";
 import { TcpChannel } from "./tcpChannel";
 class SocketOptions {
     socketConstructorOpts?:ServerOpts
-    path:string;
+    port:number;
+    host:string;
 }
 
 
 export class SocketServer  extends BaseAppServer{
     private socket:Server;
-
     constructor(option:SocketOptions) {
         super(SocketClient,TcpChannel)
         this.option = option;
@@ -33,7 +33,7 @@ export class SocketServer  extends BaseAppServer{
         this.socket.on("error",this.error.bind(this))
         // this.socket.on("lookup",this.onData)
         // this.socket.on("drain",this.onData)
-        this.socket.listen(8888);
+        this.socket.listen(this.option.port,this.option.host);
     }
 
     disListen(): void {
