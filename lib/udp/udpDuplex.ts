@@ -9,7 +9,7 @@ export class UdpDuplex extends Duplex{
         super({ readableObjectMode: true });
         this.udp = udp;
         this.udp.on("message",(msg, rinfo)=>{
-            this.push({msg:msg,rinfo:rinfo})
+            this.push(JSON.stringify({msg:msg,rinfo:rinfo}))
         })
     }
 

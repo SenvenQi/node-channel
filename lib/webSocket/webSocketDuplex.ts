@@ -5,17 +5,35 @@ export class WebSocketDuplex extends Duplex{
     private ws:WebSocket
     private msg:string | Uint8Array | ReadonlyArray<any>
     constructor(ws:WebSocket) {
-        super({ readableObjectMode: true });
+        super({ readableObjectMode: true,writableObjectMode:true });
         this.ws = ws
         this.ws.on("message",(msg, isBinary)=>{
-            this.push({msg:msg,isBinary:isBinary})
+            this.push(JSON.stringify({msg:msg,isBinary:isBinary}))
         })
     }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-        this.ws.send(chunk,callback)
+        this.ws.send(chunk)
+        callback()
     }
     _read(size: number) {
         this.resume()
+    }
+    connect():Promise<Boolean>{
+        return new Promise((resolve,reject)=>{
+            const openListener = (error)=>{
+                this.ws.removeListener("error",errorListener);
+                resolve(true)
+            }
+
+            const errorListener =  (error)=>{
+                this.ws.removeListener("open",openListener);
+                console.log(error)
+                reject(false)
+            }
+            this.ws.once("open",openListener);
+            this.ws.once("error",errorListener)
+        })
+
     }
 }
