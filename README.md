@@ -13,7 +13,7 @@ const sessionManager = new SessionManager();
 
 const sessionId = sessionManager.add(SocketClient, 
                                      TcpChannel, 
-                                     {address: "101.32.205.22", port: 8888})
+                                     {address: "127.0.0.1", port: 8888})
 
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
