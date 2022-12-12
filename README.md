@@ -11,7 +11,10 @@ import {Buffer} from "buffer";
 
 const sessionManager = new SessionManager();
 
-const sessionId = sessionManager.add(SocketClient, TcpChannel, {address: "101.32.205.22", port: 8888})
+const sessionId = sessionManager.add(SocketClient, 
+                                     TcpChannel, 
+                                     {address: "101.32.205.22", port: 8888})
+
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
 })
