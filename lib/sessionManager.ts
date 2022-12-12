@@ -33,6 +33,6 @@ export class SessionManager implements ISessionManager{
 
 
     async connect(sessionId: string) {
-        await this.sessions.get(sessionId).open()
+        return await this.sessions.get(sessionId).open()
     }
 }
