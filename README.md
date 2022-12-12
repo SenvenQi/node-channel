@@ -1,9 +1,12 @@
-#GetStarted
-Install
+# GetStarted
+
+## Install
 ```shell
 npm install @sevenqi/node-channel
 ```
-##Client example SocketClient
+## Client Example 
+
+### SocketClient
 
 ```typescript
 const sessionManager = new SessionManager();
@@ -19,5 +22,4 @@ sessionManager.onData(sessionId, (message: any) => {
 const isConnected = await sessionManager.connect(sessionId);
 if (isConnected)
     SessionManager.send(sessionId, Buffer.from("hello world"))
-
 ```
