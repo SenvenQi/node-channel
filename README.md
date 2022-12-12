@@ -2,7 +2,7 @@
 
 ## Install
 ```shell
-npm install @sevenqi/node-channel
+npm install @sevenqi/nodechannel
 ```
 ## Client Example 
 
