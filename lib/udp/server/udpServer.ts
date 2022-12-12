@@ -17,9 +17,12 @@ export class UdpServer extends SessionImpl{
         }
     }
 
-    async open(){
-        await this.connect()
-        this.channel.on("data",this.onMessage)
+    async open():Promise<boolean>{
+        if (await this.connect()){
+            this.channel.on("data",this.onMessage)
+            return true;
+        }
+        return false;
     }
 
 

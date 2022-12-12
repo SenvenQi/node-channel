@@ -9,8 +9,8 @@ export class SocketClient extends SessionImpl{
             console.log(message)
         })
     }
-    async open(){
-
+    async open():Promise<boolean>{
+        return true;
     }
 }
 

@@ -9,7 +9,7 @@ export interface Session{
     channel:Duplex
     send<T>(message:T)
     onMessage:Event<any>
-    open()
+    open():Promise<boolean>
 }
 
 export interface Event<T> {
@@ -40,7 +40,5 @@ export abstract class SessionImpl implements Session{
         this.channel.send(message)
     }
 
-    open():void{
-
-    }
+    abstract open():Promise<boolean>;
 }
