@@ -1,16 +1,27 @@
 # Supported Protocols
+
   |Protocol Name| Supported |
   |  ----       | :----: | 
   |  TcpSocket  | ☑    |
   |  UdpSocket  | ☑    |
   |  Hid        | ☑    |
-  |  SerialPort | ☑    | 
+  |  SerialPort | ☑    |
 
+---
+# Used libs
+[node-serialport](https://github.com/serialport/node-serialport)
+[node-hid](https://github.com/node-hid/node-hid)
+[uuid](https://github.com/uuidjs/uuid)
+[ws](https://github.com/websockets/ws)
+
+---
 # GetStarted
 ## Install
 ```shell
 npm install @sevenqi/nodechannel
 ```
+
+---
 ## Client Example 
 
 ### SocketClient
