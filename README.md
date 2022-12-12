@@ -6,9 +6,6 @@ npm install @sevenqi/node-channel
 ##Client example SocketClient
 
 ```typescript
-import {SessionManager} from "./sessionManager";
-import {Buffer} from "buffer";
-
 const sessionManager = new SessionManager();
 
 const sessionId = sessionManager.add(SocketClient, 
