@@ -1,5 +1,12 @@
-# GetStarted
+# Supported Protocols
+  |Protocol Name| Supported |
+  |  ----       | ---- | 
+  |  TcpSocket  | ☑    |
+  |  UdpSocket  | ☑    |
+  |  Hid        | ☑    |
+  |  SerialPort | ☑    | 
 
+# GetStarted
 ## Install
 ```shell
 npm install @sevenqi/nodechannel
