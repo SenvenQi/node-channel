@@ -19,7 +19,6 @@ export abstract class BaseChannel extends Duplex {
         this.duplex.pipe(this)
         this.duplex.on("close",()=>{
             this.onClose()
-            this.destroy()
         })
     }
 
