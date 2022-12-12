@@ -1,6 +1,6 @@
 # Supported Protocols
   |Protocol Name| Supported |
-  |  ----       | ---- | 
+  |  ----       | :----: | 
   |  TcpSocket  | ☑    |
   |  UdpSocket  | ☑    |
   |  Hid        | ☑    |
