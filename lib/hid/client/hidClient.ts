@@ -4,9 +4,12 @@ export class HidClient extends SessionImpl{
     async connect():Promise<boolean>{
         const channel = this.channel as HidChannel
         try {
-            await channel.connect()
-            this.channel = channel
-            return true
+            const connected = await channel.connect()
+            if (connected){
+                this.channel = channel
+                return true
+            }
+            return connected;
         }catch (e) {
             console.log(e);
             return false

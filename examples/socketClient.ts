@@ -9,10 +9,13 @@ sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
 })
 function connect(){
-    sessionManager.connect(sessionId).then(() => {
-        setInterval(() => {
-            sessionManager.send(sessionId, Buffer.from([0x0d,0x0a,0x11,0x11,0x22,0x33]))
-        }, 3000)
+    sessionManager.connect(sessionId).then((result) => {
+        if (result)
+            setInterval(() => {
+                sessionManager.send(sessionId, Buffer.from([0x0d,0x0a,0x11,0x11,0x22,0x33]))
+            }, 3000)
+        else
+            setTimeout(connect,3000)
     }).catch(e=>{
         setTimeout(connect,3000)
     })

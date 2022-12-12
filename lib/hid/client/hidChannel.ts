@@ -6,7 +6,7 @@ export class HidChannel extends BaseChannel{
     constructor(path:string) {
         super(new HidStream(path),StringFilter)
     }
-    async connect(): Promise<Boolean> {
+    async connect(): Promise<boolean> {
         const serialPort = this.duplex as HidStream;
         return  new Promise((resolve,reject)=>{
             try {

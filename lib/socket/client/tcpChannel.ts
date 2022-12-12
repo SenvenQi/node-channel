@@ -11,7 +11,7 @@ export class TcpChannel extends BaseChannel{
         this.port = options.port
         this.ipEndpoint = options.ipEndpoint
     }
-    async connect(): Promise<Boolean> {
+    async connect(): Promise<boolean> {
         const socket = this.duplex as Socket;
         return  new Promise((resolve,reject)=>{
             const listener = (error)=>{

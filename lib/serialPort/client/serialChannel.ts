@@ -6,7 +6,7 @@ export class SerialChannel extends BaseChannel{
     constructor(serialPortOpenOptions:SerialPortOpenOptions<any>) {
         super(new SerialPort(serialPortOpenOptions),StringFilter)
     }
-    async connect(): Promise<Boolean> {
+    async connect(): Promise<boolean> {
         const serialPort = this.duplex as SerialPort;
         return  new Promise((resolve,reject)=>{
             const listener = (error)=>{

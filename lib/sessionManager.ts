@@ -13,7 +13,7 @@ export class SessionManager implements ISessionManager{
 
     add(ctor:SessionConstructor,channel:ChannelConstructor,...channelArgs:any[]): string{
         const session = new ctor(new channel(...channelArgs));
-        session.onClose = this.remove.bind(this)
+        // session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
         return session.id
     }
@@ -32,7 +32,7 @@ export class SessionManager implements ISessionManager{
 
 
 
-    async connect(sessionId: string) {
-        return await this.sessions.get(sessionId).open()
+    connect(sessionId: string) {
+        return this.sessions.get(sessionId).open()
     }
 }
