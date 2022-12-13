@@ -5,11 +5,7 @@ import {WebSocketDuplex} from "../webSocketDuplex";
 
 export class WebSocketChannel extends BaseChannel{
 
-    constructor(options:any) {
-        super(new WebSocketDuplex(new WebSocket(options.address)),StringFilter)
-    }
-    async connect(): Promise<Boolean> {
-        const socket = this.duplex as WebSocketDuplex;
-        return socket.connect();
+    constructor(webSocketDuplex:WebSocketDuplex) {
+        super(webSocketDuplex,StringFilter)
     }
 }

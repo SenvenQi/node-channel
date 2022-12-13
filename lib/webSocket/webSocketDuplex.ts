@@ -7,8 +7,9 @@ export class WebSocketDuplex extends Duplex{
     constructor(ws:WebSocket) {
         super({ readableObjectMode: true,writableObjectMode:true });
         this.ws = ws
+        const $this = this;
         this.ws.on("message",(msg, isBinary)=>{
-            this.push(JSON.stringify({msg:msg,isBinary:isBinary}))
+            $this.push(JSON.stringify({msg:msg,isBinary:isBinary}))
         })
     }
 
@@ -29,7 +30,7 @@ export class WebSocketDuplex extends Duplex{
             const errorListener =  (error)=>{
                 this.ws.removeListener("open",openListener);
                 console.log(error)
-                reject(false)
+                reject(error)
             }
             this.ws.once("open",openListener);
             this.ws.once("error",errorListener)

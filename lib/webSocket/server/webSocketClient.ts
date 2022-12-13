@@ -1,25 +1,16 @@
 import {SessionImpl} from "../../session";
 import {WebSocketChannel} from "./webSocketChannel";
+import {BaseChannel} from "../../baseChannel";
 
 export class WebSocketClient extends SessionImpl{
-    async connect():Promise<boolean>{
-        const channel = this.channel as WebSocketChannel
-        try {
-            await channel.connect()
-            this.channel = channel
-            return true
-        }catch (e) {
-            console.log(e);
-            return false
-        }
+    constructor(channel:BaseChannel) {
+        super(channel);
+        this.channel.on("data",(message:any)=>{
+            console.log(message)
+        })
     }
-
     async open():Promise<boolean>{
-        if (await this.connect()){
-            this.channel.on("data",this.onMessage)
-            return true;
-        }
-        return false;
+        return true;
     }
 }
 
