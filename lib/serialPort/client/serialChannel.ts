@@ -14,9 +14,12 @@ export class SerialChannel extends BaseChannel{
                 reject(false)
             }
             serialPort.once("error",listener)
-            serialPort.open(()=>{
+            serialPort.open((err)=>{
                 serialPort.removeListener("error",listener);
-                resolve(true)
+                if (err)
+                    reject(err)
+                else
+                    resolve(true)
             });
         })
     }
