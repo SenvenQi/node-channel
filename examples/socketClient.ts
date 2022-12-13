@@ -22,6 +22,3 @@ function connect(){
 }
 
 connect();
-sessionManager.onData(sessionId, (message: any) => {
-    console.log("消息测试:", message)
-})

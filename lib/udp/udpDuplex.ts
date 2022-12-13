@@ -14,8 +14,7 @@ export class UdpDuplex extends Duplex{
     }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-        this.udp.send(chunk,this.port,this.address)
-        callback()
+        this.udp.send(chunk,this.port,this.address,callback)
     }
     _read(size: number) {
         this.resume()
@@ -24,7 +23,6 @@ export class UdpDuplex extends Duplex{
     connect(port: number, host: string, connectionListener?: () => void){
         this.port = port
         this.address = host
-        this.udp.connect(port,host,connectionListener)
     }
 
     bind(port: number, host: string, connectionListener?: () => void){
