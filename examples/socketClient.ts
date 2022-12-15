@@ -1,10 +1,11 @@
 import {SessionManager} from "../lib/sessionManager";
 import {SocketClient} from "../lib/socket/client/socketClient";
 import {TcpChannel} from "../lib/socket/client/tcpChannel";
+import {StringFilter} from "../lib/filter";
 
 const sessionManager = new SessionManager();
 
-const sessionId = sessionManager.add(SocketClient, TcpChannel, { address: "101.32.205.22", port: 8888})
+const sessionId = sessionManager.add(SocketClient, TcpChannel, [{ address: "101.32.205.22", port: 8888},new StringFilter()])
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
 })

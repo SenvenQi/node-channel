@@ -2,6 +2,7 @@ import * as HID  from "node-hid";
 import { HidChannel } from "../lib/hid/client/hidChannel";
 import { HidClient } from "../lib/hid/client/hidClient";
 import { SessionManager } from "../lib/sessionManager";
+import {StringFilter} from "../lib/filter";
 
 const sessionManager = new SessionManager();
 
@@ -19,7 +20,7 @@ function connect(){
         setTimeout(connect,3000)
     })
 }
-const sessionId = sessionManager.add(HidClient, HidChannel, "/dev/ssss")
+const sessionId = sessionManager.add(HidClient, HidChannel, ["/dev/ssss",new StringFilter()])
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
 })

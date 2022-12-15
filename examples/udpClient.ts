@@ -1,10 +1,11 @@
 import {SessionManager} from "../lib/sessionManager";
 import {UdpClient} from "../lib/udp/client/udpClient";
 import {UdpChannel} from "../lib/udp/client/udpChannel";
+import {StringFilter} from "../lib/filter";
 
 const sessionManager = new SessionManager();
 
-const sessionId = sessionManager.add(UdpClient, UdpChannel,{port:10001,host:"127.0.0.1"})
+const sessionId = sessionManager.add(UdpClient, UdpChannel,[{port:10001,host:"127.0.0.1"},new StringFilter()])
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
 })

@@ -1,6 +1,7 @@
 import {WebSocketServer} from "../lib/webSocket/server/webSocketServer";
+import {StringFilter} from "../lib/filter";
 
-const appServer = new WebSocketServer({port:8888},)
+const appServer = new WebSocketServer({port:8888},StringFilter)
 appServer.listen();
 // setInterval(()=>{
 //     appServer.sessions.forEach(item=>{

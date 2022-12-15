@@ -3,13 +3,15 @@ import {WebSocketClient} from "./webSocketClient";
 import {WebSocketChannel} from "./webSocketChannel";
 import {ServerOptions, WebSocketServer as Server} from "ws";
 import {WebSocketDuplex} from "../webSocketDuplex";
+import {Filter} from "../../filter";
 
 export class WebSocketServer extends BaseAppServer{
     private socket:Server;
-
-    constructor(option:ServerOptions) {
+    private filter:new ()=>Filter;
+    constructor(option:ServerOptions,filter:new ()=>Filter) {
         super(WebSocketClient,WebSocketChannel)
         this.option = option;
+        this.filter = filter;
     }
 
     state: boolean;
@@ -20,7 +22,7 @@ export class WebSocketServer extends BaseAppServer{
     }
     listen(): void {
         this.socket = new Server(this.option)
-        this.socket.on("connection",(socket,request) => this.connection(new WebSocketDuplex(socket)))
+        this.socket.on("connection",(socket,request) => this.connection(new WebSocketDuplex(socket),new this.filter()))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)
         // this.socket.on("end",this.onData)

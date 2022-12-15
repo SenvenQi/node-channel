@@ -2,6 +2,7 @@ import { Server, ServerOpts, Socket} from "net"
 import {BaseAppServer} from "../../appServer";
 import {SocketClient} from "./socketClient";
 import { TcpChannel } from "./tcpChannel";
+import {Filter} from "../../filter";
 class SocketOptions {
     socketConstructorOpts?:ServerOpts
     port:number;
@@ -11,9 +12,11 @@ class SocketOptions {
 
 export class SocketServer  extends BaseAppServer{
     private socket:Server;
-    constructor(option:SocketOptions) {
+    private filter:new ()=>Filter
+    constructor(option:SocketOptions,filter:new ()=>Filter) {
         super(SocketClient,TcpChannel)
         this.option = option;
+        this.filter = filter;
     }
 
     state: boolean;
@@ -24,7 +27,7 @@ export class SocketServer  extends BaseAppServer{
     }
     listen(): void {
         this.socket = new Server()
-        this.socket.on("connection",(socket:Socket) => this.connection(socket))
+        this.socket.on("connection",(socket:Socket) => this.connection(socket,new this.filter()))
         // this.socket.on("ready",this.onData)
         // this.socket.on("timeout",this.onData)
         // this.socket.on("end",this.onData)

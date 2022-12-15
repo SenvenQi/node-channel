@@ -1,6 +1,7 @@
 import { SocketServer } from "../lib/socket/server/socketServer";
+import {StringFilter} from "../lib/filter";
 
-const appServer = new SocketServer({port:8888,host:"0.0.0.0"})
+const appServer = new SocketServer({port:8888,host:"0.0.0.0"},StringFilter)
 appServer.listen();
 setInterval(()=>{
     appServer.sessions.forEach(item=>{
