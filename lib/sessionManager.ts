@@ -31,7 +31,6 @@ export class SessionManager implements ISessionManager{
     }
 
 
-
     connect(sessionId: string) {
         return this.sessions.get(sessionId).open()
     }
