@@ -1,10 +1,10 @@
 import {BaseChannel} from "../../baseChannel";
-import {StringFilter} from "../../filter";
+import {Filter, StringFilter} from "../../filter";
 import {SerialPort, SerialPortOpenOptions} from "serialport";
 
 export class SerialChannel extends BaseChannel{
-    constructor(serialPortOpenOptions:SerialPortOpenOptions<any>) {
-        super(new SerialPort(serialPortOpenOptions),StringFilter)
+    constructor(serialPortOpenOptions:SerialPortOpenOptions<any>,filter:Filter) {
+        super(new SerialPort(serialPortOpenOptions),filter)
     }
     async connect(): Promise<boolean> {
         const serialPort = this.duplex as SerialPort;

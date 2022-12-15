@@ -5,16 +5,16 @@ export interface ChannelConstructor{
 }
 
 export interface ChannelConstructorWithDuplex{
-    new (duplex:Duplex):BaseChannel
+    new (duplex:Duplex,filter:Filter):BaseChannel
 }
 export abstract class BaseChannel extends Duplex {
     public readonly duplex:Duplex
     private filter:Filter;
     public onClose:() => void;
 
-    protected constructor(duplex:Duplex,ctor:new ()=>Filter) {
+    protected constructor(duplex:Duplex,filter:Filter) {
         super({ readableObjectMode: true });
-        this.filter = new ctor()
+        this.filter = filter
         this.duplex = duplex
         this.duplex.pipe(this)
         this.duplex.on("close",()=>{

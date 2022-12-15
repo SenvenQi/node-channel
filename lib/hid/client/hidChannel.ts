@@ -1,10 +1,10 @@
 import {BaseChannel} from "../../baseChannel";
-import {StringFilter} from "../../filter";
+import {Filter, StringFilter} from "../../filter";
 import {HidStream} from "../HidStream";
 
 export class HidChannel extends BaseChannel{
-    constructor(path:string) {
-        super(new HidStream(path),StringFilter)
+    constructor(path:string,filter:Filter) {
+        super(new HidStream(path),filter)
     }
     async connect(): Promise<boolean> {
         const serialPort = this.duplex as HidStream;

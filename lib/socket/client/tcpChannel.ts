@@ -1,13 +1,13 @@
 import {Socket} from "net";
 import {BaseChannel} from "../../baseChannel";
-import {StringFilter} from "../../filter";
+import {Filter, StringFilter} from "../../filter";
 
 export class TcpChannel extends BaseChannel{
     private readonly port:number;
     private readonly ipEndpoint:string;
 
-    constructor(options:any) {
-        super(new Socket(),StringFilter)
+    constructor(options:any,filter:Filter) {
+        super(new Socket(),filter)
         this.port = options.port
         this.ipEndpoint = options.ipEndpoint
     }

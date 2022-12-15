@@ -2,9 +2,10 @@ import {Duplex} from "stream";
 import {SessionManager} from "./sessionManager";
 import {ChannelConstructorWithDuplex} from "./baseChannel";
 import {SessionConstructor} from "./session";
+import {Filter} from "./filter";
 
 export interface AppServer{
-    connection(duplex:Duplex):void
+    connection(duplex:Duplex,filter:Filter):void
     listen(): void
     disListen(): void
 }
@@ -19,8 +20,8 @@ export class BaseAppServer extends SessionManager implements AppServer {
         this.ctorSession = ctorSession
     }
 
-    connection(duplex:Duplex): void {
-        const session = new this.ctorSession(new this.ctorChannel(duplex));
+    connection(duplex:Duplex,filter:Filter): void {
+        const session = new this.ctorSession(new this.ctorChannel(duplex,filter));
         session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
     }

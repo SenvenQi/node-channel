@@ -1,13 +1,13 @@
 import {BaseChannel} from "../../baseChannel";
-import {StringFilter} from "../../filter";
+import {Filter, StringFilter} from "../../filter";
 import {UdpDuplex} from "../udpDuplex";
 import {createSocket} from "dgram";
 
 export class UdpChannel extends BaseChannel{
     private readonly port:number
     private readonly host:string
-    constructor(options:any) {
-        super(new UdpDuplex(createSocket("udp4")),StringFilter)
+    constructor(options:any,filter:Filter) {
+        super(new UdpDuplex(createSocket("udp4")),filter)
         this.port = options.port
         this.host = options.host
     }
