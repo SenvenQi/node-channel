@@ -1,7 +1,7 @@
 import {SessionImpl} from "../../session";
 import {TcpChannel} from "./tcpChannel";
 
-export class SocketClient extends SessionImpl{
+export class TcpClient extends SessionImpl{
     async connect():Promise<boolean>{
         const channel = this.channel as TcpChannel
         try {

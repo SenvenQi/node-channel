@@ -1,6 +1,6 @@
 import {HidClient} from "./hid/client/hidClient";
 import {HidChannel} from "./hid/client/hidChannel";
-import {SocketClient} from "./socket/client/socketClient";
+import {TcpClient} from "./socket/client/tcpClient";
 import {TcpChannel} from "./socket/client/tcpChannel";
 import {SerialClient} from "./serialPort/client/serialClient";
 import {SerialChannel} from "./serialPort/client/serialChannel";
@@ -40,7 +40,7 @@ export class Config{
             channel:HidChannel
         }],
         [ChannelType.Tcp,{
-            session:SocketClient,
+            session:TcpClient,
             channel:TcpChannel
         }],
         [ChannelType.Serial,{

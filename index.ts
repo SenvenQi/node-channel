@@ -3,7 +3,7 @@ import {Filter, StringFilter } from "./lib/filter";
 import { ServerChannelManager } from "./lib/serverChannelManager";
 import { Session, SessionConstructor, SessionImpl, Event } from "./lib/session";
 import {ISessionManager, SessionManager } from "./lib/sessionManager";
-import { SocketClient } from "./lib/socket/client/socketClient";
+import { TcpClient } from "./lib/socket/client/tcpClient";
 import { SocketClient as ServerSocketClient } from "./lib/socket/server/socketClient";
 import { SocketServer } from "./lib/socket/server/socketServer";
 import { TcpChannel as ServerTcpChannel } from "./lib/socket/server/tcpChannel";
@@ -24,7 +24,7 @@ export {
     StringFilter,
     SocketServer,
     ServerSocketClient,
-    SocketClient,
+    TcpClient,
     ServerTcpChannel,
     ClientTcpChannel,
     SerialClient,
