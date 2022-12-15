@@ -11,7 +11,7 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     public sessions: Map<string,Session> = new Map<string, Session>();
 
-    add(ctor:SessionConstructor,channel:ChannelConstructor,...channelArgs:any[]): string{
+    add(ctor:SessionConstructor,channel:ChannelConstructor,channelArgs:any[]): string{
         const session = new ctor(new channel(...channelArgs));
         // session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)

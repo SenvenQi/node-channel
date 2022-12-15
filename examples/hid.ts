@@ -20,7 +20,7 @@ function connect(){
         setTimeout(connect,3000)
     })
 }
-const sessionId = sessionManager.add(HidClient, HidChannel, ["/dev/ssss",new StringFilter()])
+const sessionId = sessionManager.add(HidClient, HidChannel, ["IOService:/IOResources/IOHIDResource/IOHIDResourceDeviceUserClient/IOHIDUserDevice",new StringFilter()])
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
 })
