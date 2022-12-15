@@ -28,14 +28,14 @@ export class SocketServer  extends BaseAppServer{
     listen(): void {
         this.socket = new Server()
         this.socket.on("connection",(socket:Socket) => this.connection(socket,new this.filter()))
-        // this.socket.on("ready",this.onData)
-        // this.socket.on("timeout",this.onData)
-        // this.socket.on("end",this.onData)
-        // this.socket.on("close",this.onData)
-        // this.socket.on("data",this.onData.bind(this))
+        // this.tcp.on("ready",this.onData)
+        // this.tcp.on("timeout",this.onData)
+        // this.tcp.on("end",this.onData)
+        // this.tcp.on("close",this.onData)
+        // this.tcp.on("data",this.onData.bind(this))
         this.socket.on("error",this.error.bind(this))
-        // this.socket.on("lookup",this.onData)
-        // this.socket.on("drain",this.onData)
+        // this.tcp.on("lookup",this.onData)
+        // this.tcp.on("drain",this.onData)
         this.socket.listen(this.option.port,this.option.host);
     }
 

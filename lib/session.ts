@@ -27,7 +27,7 @@ export abstract class SessionImpl implements Session{
         console.log(buffer)
     }
     onClose:Event<any> = () => {
-        console.log("socket is closed!")
+        console.log("tcp is closed!")
     }
 
     constructor(channel:BaseChannel) {

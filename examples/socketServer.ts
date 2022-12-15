@@ -1,4 +1,4 @@
-import { SocketServer } from "../lib/socket/server/socketServer";
+import { SocketServer } from "../lib/tcp/server/socketServer";
 import {StringFilter} from "../lib/filter";
 
 const appServer = new SocketServer({port:8888,host:"0.0.0.0"},StringFilter)

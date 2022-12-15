@@ -19,9 +19,9 @@ export class UdpChannel extends BaseChannel{
             //     console.log(error)
             //     reject(false)
             // }
-            // socket.once("error",listener)
+            // tcp.once("error",listener)
             socket.connect(this.port,this.host,()=>{
-                // socket.removeListener("error",listener);
+                // tcp.removeListener("error",listener);
                 resolve(true)
             });
             // resolve(true)
