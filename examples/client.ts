@@ -15,7 +15,7 @@ const tcpSessionId = sessionManager.add({
     channelOptions:{
         options:{port:8889,host:"0.0.0.0"},
         filter:new StringFilter()}})
-sessionManager.onData(tcpSessionId, (message: any) => {
+sessionManager.onDataAll((message: any) => {
     console.log("消息:", message)
 })
 sessionManager.connect(tcpSessionId).then(() => {

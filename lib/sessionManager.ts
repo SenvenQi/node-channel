@@ -36,6 +36,12 @@ export class SessionManager implements ISessionManager{
         this.sessions.get(id).send(message);
     }
 
+
+    onDataAll(func:Event<any>){
+       this.sessions.forEach(session=>{
+           session.onMessage = func
+       })
+    }
     onData(id:string,func:Event<any>){
        this.sessions.get(id).onMessage = func
     }
