@@ -1,9 +1,13 @@
 import {Session, SessionConstructor } from "./session";
 import {ChannelConstructor} from "./baseChannel";
 import { Event } from "./session"
+import {ClientArgs, Config} from "./config";
+
+
+
 
 export interface ISessionManager{
-    add(ctor:SessionConstructor,channel:ChannelConstructor,options:any): string
+    add<T>(sessionOptions:ClientArgs<T>): string
     remove(id:string):void
     send<T>(id:string,message:T):void
 }
@@ -11,7 +15,13 @@ export interface ISessionManager{
 export class SessionManager implements ISessionManager{
     public sessions: Map<string,Session> = new Map<string, Session>();
 
-    add(ctor:SessionConstructor,channel:ChannelConstructor,channelArgs:any[]): string{
+    add<T>(sessionOptions:ClientArgs<T>):string{
+       const sessionOption = Config.getClientOptions(sessionOptions.channelType)
+       return this.addSession(sessionOption.session,
+           sessionOption.channel,
+           [sessionOptions.channelOptions.options,sessionOptions.channelOptions.filter])
+    }
+    private addSession(ctor:SessionConstructor,channel:ChannelConstructor,channelArgs:any[]): string{
         const session = new ctor(new channel(...channelArgs));
         // session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
@@ -29,7 +39,6 @@ export class SessionManager implements ISessionManager{
     onData(id:string,func:Event<any>){
        this.sessions.get(id).onMessage = func
     }
-
 
     connect(sessionId: string) {
         return this.sessions.get(sessionId).open()

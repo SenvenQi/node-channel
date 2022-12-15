@@ -4,10 +4,10 @@ import { SessionManager } from "../lib/sessionManager";
 import {SerialPort} from "serialport";
 import {StringFilter} from "../lib/filter";
 
-const sessionManager = new SessionManager();
-SerialPort.list().then(s=>{
-    console.log(s)
-})
+// const sessionManager = new SessionManager();
+// SerialPort.list().then(s=>{
+//     console.log(s)
+// })
 // const sessionId = sessionManager.add(SerialClient, SerialChannel, [{
 //   path: '/dev/tty.usbserial-AR0K7IQ6',
 //   baudRate: 115200,
