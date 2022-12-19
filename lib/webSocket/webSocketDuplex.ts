@@ -11,6 +11,9 @@ export class WebSocketDuplex extends Duplex{
         this.ws.on("message",(msg, isBinary)=>{
             $this.push(JSON.stringify({msg:msg,isBinary:isBinary}))
         })
+        this.ws.on("close",()=>{
+            console.log("websocket close")
+        })
     }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {

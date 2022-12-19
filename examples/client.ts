@@ -12,21 +12,21 @@ const webSocketSessionId = sessionManager.add({
     }
 })
 
-const tcpSessionId = sessionManager.add({
-    channelType: ChannelType.Tcp,
-    channelOptions: {
-        options: { port: 8889, host: "0.0.0.0" },
-        filter: StringFilter
-    }
-})
-
-const udpSessionId = sessionManager.add({
-    channelType: ChannelType.Udp,
-    channelOptions: {
-        options: { port: 8890, host: "0.0.0.0" },
-        filter: StringFilter
-    }
-})
+// const tcpSessionId = sessionManager.add({
+//     channelType: ChannelType.Tcp,
+//     channelOptions: {
+//         options: { port: 8889, host: "0.0.0.0" },
+//         filter: StringFilter
+//     }
+// })
+//
+// const udpSessionId = sessionManager.add({
+//     channelType: ChannelType.Udp,
+//     channelOptions: {
+//         options: { port: 8890, host: "0.0.0.0" },
+//         filter: StringFilter
+//     }
+// })
 
 // const serialSessionId = sessionManager.add({
 //     channelType:ChannelType.Serial,
@@ -53,16 +53,16 @@ sessionManager.onDataAll((message: any) => {
 //         sessionManager.send(hidSessionId, "hello hid")
 //     }, 3000)
 // })
-sessionManager.connect(udpSessionId).then(() => {
-    setInterval(() => {
-        sessionManager.send(udpSessionId, "hello udpSocket")
-    }, 3000)
-})
-sessionManager.connect(tcpSessionId).then(() => {
-    setInterval(() => {
-        sessionManager.send(tcpSessionId, "hello tcpSocket")
-    }, 3000)
-})
+// sessionManager.connect(udpSessionId).then(() => {
+//     setInterval(() => {
+//         sessionManager.send(udpSessionId, "hello udpSocket")
+//     }, 3000)
+// })
+// sessionManager.connect(tcpSessionId).then(() => {
+//     setInterval(() => {
+//         sessionManager.send(tcpSessionId, "hello tcpSocket")
+//     }, 3000)
+// })
 sessionManager.connect(webSocketSessionId).then(() => {
     setInterval(() => {
         sessionManager.send(webSocketSessionId, "hello websocket")
