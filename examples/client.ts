@@ -58,7 +58,6 @@ sessionManager.connect(udpSessionId).then(() => {
         sessionManager.send(udpSessionId, "hello udpSocket")
     }, 3000)
 })
-
 sessionManager.connect(tcpSessionId).then(() => {
     setInterval(() => {
         sessionManager.send(tcpSessionId, "hello tcpSocket")
