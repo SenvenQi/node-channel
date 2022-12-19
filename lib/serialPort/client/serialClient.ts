@@ -1,7 +1,7 @@
-import {SessionImpl} from "../../session";
+import {SessionClient, SessionServer} from "../../session";
 import {SerialChannel} from "./serialChannel";
 
-export class SerialClient extends SessionImpl{
+export class SerialClient extends SessionClient{
      async connect():Promise<boolean>{
         const channel = this.channel as SerialChannel
         try {

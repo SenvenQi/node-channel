@@ -1,8 +1,8 @@
-import {SessionImpl} from "../../session";
+import {SessionClient, SessionServer} from "../../session";
 import {UdpChannel} from "./udpChannel";
 import {SerialChannel} from "../../serialPort/client/serialChannel";
 
-export class UdpClient extends SessionImpl{
+export class UdpClient extends SessionClient{
     async connect():Promise<boolean>{
         const channel = this.channel as UdpChannel
         try {

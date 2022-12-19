@@ -9,8 +9,8 @@ import {UdpChannel} from "./udp/client/udpChannel";
 import {WebSocketClient} from "./webSocket/client/webSocketClient";
 import {WebSocketChannel} from "./webSocket/client/webSocketChannel";
 import {Filter} from "./filter";
-import {SessionConstructor} from "./session";
 import {ChannelConstructor} from "./baseChannel";
+import {SessionClientConstructor} from "./session";
 
 export enum ChannelType{
     Hid,
@@ -30,7 +30,7 @@ export interface ClientArgs<T>{
 }
 
 export interface ClientOptions{
-    session:SessionConstructor;
+    session: any;
     channel:ChannelConstructor
 }
 export class Config{

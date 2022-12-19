@@ -1,4 +1,4 @@
-import {Session, SessionConstructor } from "./session";
+import {Session, SessionClient, SessionClientConstructor, SessionConstructor, SessionServer} from "./session";
 import {ChannelConstructor} from "./baseChannel";
 import { Event } from "./session"
 import {ClientArgs, Config} from "./config";
@@ -21,8 +21,8 @@ export class SessionManager implements ISessionManager{
            sessionOption.channel,
            [sessionOptions.channelOptions.options,sessionOptions.channelOptions.filter])
     }
-    private addSession(ctor:SessionConstructor,channel:ChannelConstructor,channelArgs:any[]): string{
-        const session = new ctor(new channel(...channelArgs));
+    private addSession(ctor:SessionClientConstructor,channel:ChannelConstructor,channelArgs:any[]): string{
+        const session = new ctor(channel,channelArgs);
         // session.onClose = this.remove.bind(this)
         this.sessions.set(session.id,session)
         return session.id
@@ -46,6 +46,9 @@ export class SessionManager implements ISessionManager{
     }
 
     connect(sessionId: string) {
-        return this.sessions.get(sessionId).open()
+        if (this.sessions.get(sessionId) && this.sessions.get(sessionId) instanceof SessionClient)
+            return (this.sessions.get(sessionId) as SessionClient).openChannel()
+        else
+            throw new Error("SessionServer not support connect")
     }
 }

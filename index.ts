@@ -1,7 +1,7 @@
 import { AppServer } from "./lib/appServer";
 import {Filter, StringFilter } from "./lib/filter";
 import { ServerChannelManager } from "./lib/serverChannelManager";
-import { Session, SessionConstructor, SessionImpl, Event } from "./lib/session";
+import { Session, SessionConstructor, SessionServer, Event } from "./lib/session";
 import {ISessionManager, SessionManager } from "./lib/sessionManager";
 import { TcpClient } from "./lib/tcp/client/tcpClient";
 import { SocketClient as ServerSocketClient } from "./lib/tcp/server/socketClient";
@@ -16,7 +16,7 @@ export {
     ServerChannelManager,
     SessionManager,
     Session,
-    SessionImpl,
+    SessionServer,
     SessionConstructor,
     Event,
     ISessionManager,

@@ -1,7 +1,7 @@
-import {SessionImpl} from "../../session";
+import {SessionClient, SessionServer} from "../../session";
 import {WebSocketChannel} from "./webSocketChannel";
 
-export class WebSocketClient extends SessionImpl{
+export class WebSocketClient extends SessionClient{
     async connect():Promise<boolean>{
         const channel = this.channel as WebSocketChannel
         try {

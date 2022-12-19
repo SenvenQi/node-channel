@@ -1,7 +1,7 @@
-import {SessionImpl} from "../../session";
+import {SessionServer} from "../../session";
 import {BaseChannel} from "../../baseChannel";
 
-export class SocketClient extends SessionImpl{
+export class SocketClient extends SessionServer{
 
     constructor(channel:BaseChannel) {
         super(channel);

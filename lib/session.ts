@@ -1,6 +1,6 @@
 import { v4 as uuid4 } from 'uuid';
 import {Duplex} from "stream";
-import {BaseChannel} from "./baseChannel";
+import {BaseChannel, ChannelConstructor} from "./baseChannel";
 
 
 export interface Session{
@@ -9,7 +9,6 @@ export interface Session{
     channel:Duplex
     send<T>(message:T)
     onMessage:Event<any>
-    open():Promise<boolean>
 }
 
 export interface Event<T> {
@@ -20,8 +19,40 @@ export interface SessionConstructor{
     new ( channel: BaseChannel) : Session;
 }
 
-export abstract class SessionImpl implements Session{
+export interface SessionClientConstructor{
+    new (channelCtor:ChannelConstructor, args:any[]):Session
+}
+
+export abstract class SessionServer implements Session{
     channel: BaseChannel;
+    private readonly channelCtor:ChannelConstructor;
+    private readonly args:[];
+    id: string;
+    onMessage:Event<any>= (buffer:any)=>{
+        console.log(buffer)
+    }
+    onClose:Event<any> = () => {
+        console.log("tcp is closed!")
+    }
+    protected constructor(channel:BaseChannel) {
+        this.channel = channel;
+        this.id = uuid4()
+        this.channel.onClose = () => this.onClose(this.id)
+    }
+
+    send<T>(message: T) {
+        this.channel.send(message)
+    }
+
+
+
+}
+
+
+export abstract class SessionClient implements Session {
+    channel: BaseChannel;
+    private readonly channelCtor:ChannelConstructor;
+    private readonly args:any[];
     id: string;
     onMessage:Event<any>= (buffer:any)=>{
         console.log(buffer)
@@ -30,15 +61,20 @@ export abstract class SessionImpl implements Session{
         console.log("tcp is closed!")
     }
 
-    constructor(channel:BaseChannel) {
-        this.channel = channel
+    protected constructor(channelCtor:ChannelConstructor, args:any[]) {
+        this.channelCtor = channelCtor;
+        this.args = args;
         this.id = uuid4()
-        channel.onClose = () => this.onClose(this.id)
     }
 
     send<T>(message: T) {
         this.channel.send(message)
     }
 
+    openChannel(): Promise<boolean> {
+        this.channel = new this.channelCtor(...this.args);
+        this.channel.onClose = () => this.onClose(this.id)
+        return this.open();
+    }
     abstract open():Promise<boolean>;
 }

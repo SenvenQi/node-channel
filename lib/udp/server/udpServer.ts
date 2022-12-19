@@ -1,9 +1,9 @@
 import {BindOptions, createSocket, Socket} from "dgram"
 import { UdpChannel } from "./udpChannel";
-import {SessionImpl} from "../../session";
+import {SessionClient, SessionServer} from "../../session";
 
 
-export class UdpServer extends SessionImpl{
+export class UdpServer extends SessionClient{
     private socket:Socket;
     async connect():Promise<boolean>{
         const channel = this.channel as UdpChannel
