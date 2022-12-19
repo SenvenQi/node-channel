@@ -13,7 +13,12 @@
     "url": "git+https://github.com/SenvenQi/node-channel.git"
   },
   "keywords": [
-    "channel"
+    "channel",
+    "socket",
+    "udp",
+    "webSocket",
+    "hid",
+    "serialport"
   ],
   "author": "SevenQi",
   "license": "MIT",
