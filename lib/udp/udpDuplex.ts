@@ -11,6 +11,9 @@ export class UdpDuplex extends Duplex{
         this.udp.on("message",(msg, rinfo)=>{
             this.push(JSON.stringify({msg:msg,rinfo:rinfo}))
         })
+        this.udp.on("close",()=>{
+            this.emit("close")
+        })
     }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
