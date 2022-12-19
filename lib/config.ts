@@ -22,7 +22,7 @@ export enum ChannelType{
 
 export  interface ChannelOption<T>{
     options:T
-    filter:Filter
+    filter:new () => Filter
 }
 export interface ClientArgs<T>{
     channelOptions:ChannelOption<T>

@@ -1,26 +1,32 @@
-import { SessionManager} from "../lib/sessionManager";
-import {StringFilter} from "../lib/filter";
+import { SessionManager } from "../lib/sessionManager";
+import { StringFilter } from "../lib/filter";
 import { ChannelType } from "../lib/config";
 
 const sessionManager = new SessionManager();
 
 const webSocketSessionId = sessionManager.add({
-    channelType:ChannelType.WebSocket,
-    channelOptions:{
-        options:{address:"ws://0.0.0.0:8888"},
-        filter:new StringFilter()}})
+    channelType: ChannelType.WebSocket,
+    channelOptions: {
+        options: { address: "ws://0.0.0.0:8888" },
+        filter: StringFilter
+    }
+})
 
 const tcpSessionId = sessionManager.add({
-    channelType:ChannelType.Tcp,
-    channelOptions:{
-        options:{port:8889,host:"0.0.0.0"},
-        filter:new StringFilter()}})
+    channelType: ChannelType.Tcp,
+    channelOptions: {
+        options: { port: 8889, host: "0.0.0.0" },
+        filter: StringFilter
+    }
+})
 
 const udpSessionId = sessionManager.add({
-    channelType:ChannelType.Udp,
-    channelOptions:{
-        options:{port:8890,host:"0.0.0.0"},
-        filter:new StringFilter()}})
+    channelType: ChannelType.Udp,
+    channelOptions: {
+        options: { port: 8890, host: "0.0.0.0" },
+        filter: StringFilter
+    }
+})
 
 // const serialSessionId = sessionManager.add({
 //     channelType:ChannelType.Serial,
@@ -30,13 +36,13 @@ const udpSessionId = sessionManager.add({
 //         baudRate: 115200,
 //         autoOpen: false,
 //     },
-//     filter:new StringFilter()}})
+//     filter:StringFilter}})
 //
 // const hidSessionId = sessionManager.add({
 //     channelType:ChannelType.Hid,
 //     channelOptions:{
 //     options : '/IO/Hid',
-//     filter:new StringFilter()}})
+//     filter:StringFilter}})
 
 sessionManager.onDataAll((message: any) => {
     console.log("消息:", message)
