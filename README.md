@@ -29,9 +29,13 @@ npm install @sevenqi/nodechannel
 ```typescript
 const sessionManager = new SessionManager();
 
-const sessionId = sessionManager.add(SocketClient, 
-                                     TcpChannel, 
-                                     {address: "127.0.0.1", port: 8888})
+const sessionId = sessionManager.add({
+    channelType: ChannelType.WebSocket,
+    channelOptions: {
+        options: { address: "ws://0.0.0.0:8888" },
+        filter: StringFilter
+    }
+})
 
 sessionManager.onData(sessionId, (message: any) => {
     console.log("消息:", message)
