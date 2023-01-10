@@ -24,7 +24,7 @@ npm install @sevenqi/nodechannel
 ---
 ## Client Example 
 
-### SocketClient
+### WebSocket 
 
 ```typescript
 const sessionManager = new SessionManager();
