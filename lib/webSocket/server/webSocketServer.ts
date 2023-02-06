@@ -7,7 +7,7 @@ import {Filter} from "../../filter";
 
 export class WebSocketServer extends BaseAppServer{
     private socket:Server;
-    private filter:new ()=>Filter;
+    private readonly filter:new ()=>Filter;
     constructor(option:ServerOptions,filter:new ()=>Filter) {
         super(WebSocketClient,WebSocketChannel)
         this.option = option;
