@@ -16,7 +16,7 @@ export interface Event<T> {
 }
 
 export interface SessionConstructor{
-    new ( channel: BaseChannel) : Session;
+    new ( channel: BaseChannel,callback?:Event<any>) : Session;
 }
 
 export interface SessionClientConstructor{

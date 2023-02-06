@@ -22,7 +22,10 @@ export class WebSocketServer extends BaseAppServer{
     }
     listen(): void {
         this.socket = new Server(this.option)
-        this.socket.on("connection",(socket,request) => this.connection(new WebSocketDuplex(socket),new this.filter()))
+        this.socket.on("connection",(socket,request) => {
+            this.connection(new WebSocketDuplex(socket),new this.filter())
+
+        })
         // this.tcp.on("ready",this.onData)
         // this.tcp.on("timeout",this.onData)
         // this.tcp.on("end",this.onData)

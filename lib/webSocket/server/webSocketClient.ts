@@ -1,13 +1,11 @@
 import {SessionServer} from "../../session";
-import {WebSocketChannel} from "./webSocketChannel";
 import {BaseChannel} from "../../baseChannel";
-
+import {Event} from "../../session";
 export class WebSocketClient extends SessionServer{
-    constructor(channel:BaseChannel) {
+    constructor(channel:BaseChannel,func?:Event<any>) {
         super(channel);
-        this.channel.on("data",(message:any)=>{
-            console.log(message)
-        })
+        this.onMessage = func;
+        this.channel.on("data",this.onMessage)
     }
     async open():Promise<boolean>{
         return true;
