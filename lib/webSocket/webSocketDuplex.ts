@@ -9,7 +9,7 @@ export class WebSocketDuplex extends Duplex{
         this.ws = ws
         const $this = this;
         this.ws.on("message",(msg, isBinary)=>{
-            $this.push(JSON.stringify({msg:msg.toString(),isBinary:isBinary}))
+            $this.push(msg.toString())
         })
         this.ws.on("close",()=>{
             this.emit("close")
