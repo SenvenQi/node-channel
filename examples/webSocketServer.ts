@@ -3,7 +3,7 @@ import {StringFilter} from "../lib/filter";
 
 const appServer = new WebSocketServer({port:8888},StringFilter)
 appServer.onServerData((message)=>{
-    console.log((JSON.parse(message).msg))
+    console.log(message)
 })
 
 appServer.listen();
