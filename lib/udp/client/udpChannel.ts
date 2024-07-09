@@ -15,14 +15,8 @@ export class UdpChannel extends BaseChannel{
     async connect(): Promise<boolean> {
         const socket = this.duplex as UdpDuplex;
         return  new Promise((resolve,reject)=>{
-            // const listener = (error)=>{
-            //     console.log(error)
-            //     reject(false)
-            // }
-            // tcp.once("error",listener)
             socket.connect(this.port,this.host);
             resolve(true)
-            // resolve(true)
         })
     }
 }
