@@ -3,10 +3,10 @@ import assert from "node:assert/strict";
 import { PassThrough } from "node:stream";
 import { Buffer } from "buffer";
 import { BaseChannel } from "../lib/baseChannel";
-import { DelimiterFilter, StringFilter } from "../lib/filter";
+import { DelimiterFilter, StringFilter, Filter } from "../lib/filter";
 
 class TestChannel extends BaseChannel {
-    constructor(duplex: PassThrough, filter = new StringFilter()) {
+    constructor(duplex: PassThrough, filter: Filter = new StringFilter()) {
         super(duplex, filter);
     }
 }
