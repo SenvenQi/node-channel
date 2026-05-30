@@ -67,10 +67,34 @@ export abstract class SessionClient implements Session {
         this.channel.send(message)
     }
 
+    /**
+     * Open the underlying channel's transport. Channels expose an optional
+     * async `connect()`; if absent the transport is considered ready.
+     * Shared by every protocol client so the connect/open flow lives in
+     * one place instead of being copy-pasted per transport.
+     */
+    async connect(): Promise<boolean> {
+        const channel = this.channel as unknown as { connect?: () => Promise<boolean | Boolean> };
+        try {
+            if (typeof channel.connect === "function")
+                return (await channel.connect()) !== false;
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    async open(): Promise<boolean> {
+        if (await this.connect()) {
+            this.channel.on("data", (data: any) => this.onMessage(data));
+            return true;
+        }
+        return false;
+    }
+
     openChannel(): Promise<boolean> {
         this.channel = new this.channelCtor(...this.args);
         this.channel.onClose = () => this.onClose(this.id)
         return this.open();
     }
-    abstract open():Promise<boolean>;
 }

@@ -1,29 +1,5 @@
 import {SessionClient} from "../../session";
-import {TcpChannel} from "./tcpChannel";
 
-export class TcpClient extends SessionClient{
-    async connect():Promise<boolean>{
-        const channel = this.channel as TcpChannel
-        try {
-            const connected = await channel.connect()
-            if (connected){
-                this.channel = channel
-                return true
-            }
-            return connected;
-        }catch (e) {
-            console.log(e);
-            return false
-        }
-    }
-
-    async open():Promise<boolean>{
-        if (await this.connect()){
-            this.channel.on("data",(data:any)=>this.onMessage(data))
-            return true;
-        }
-        return false;
-    }
-}
-
-
+// Connect/open behaviour is inherited from SessionClient; the TcpChannel
+// supplies the transport-specific connect().
+export class TcpClient extends SessionClient {}

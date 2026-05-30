@@ -1,12 +1,13 @@
 import {BaseChannel} from "../../baseChannel";
-import {Filter, StringFilter} from "../../filter";
+import {Filter} from "../../filter";
 import {UdpDuplex} from "../udpDuplex";
 import {createSocket} from "dgram";
+import {UdpOptions} from "../../options";
 
 export class UdpChannel extends BaseChannel{
     private readonly port:number
     private readonly host:string
-    constructor(options:any,filter:Filter) {
+    constructor(options:UdpOptions,filter:Filter) {
         super(new UdpDuplex(createSocket("udp4")),filter)
         this.port = options.port
         this.host = options.host
@@ -14,9 +15,8 @@ export class UdpChannel extends BaseChannel{
     async connect(): Promise<boolean> {
         const socket = this.duplex as UdpDuplex;
         return  new Promise((resolve,reject)=>{
-            const listener = (error)=>{
-                console.log(error)
-                reject(false)
+            const listener = (error:Error)=>{
+                reject(error)
             }
             socket.once("error",listener)
             socket.bind(this.port,this.host,()=>{

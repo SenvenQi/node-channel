@@ -1,25 +1,26 @@
 import {Socket} from "net";
 import {BaseChannel} from "../../baseChannel";
-import {Filter, StringFilter} from "../../filter";
+import {Filter} from "../../filter";
+import {TcpOptions} from "../../options";
 
 export class TcpChannel extends BaseChannel{
     private readonly port:number;
-    private readonly ipEndpoint:string;
+    private readonly host:string;
 
-    constructor(options:any,filter:Filter) {
+    constructor(options:TcpOptions & { ipEndpoint?:string },filter:Filter) {
         super(new Socket(),filter)
         this.port = options.port
-        this.ipEndpoint = options.ipEndpoint
+        // `host` is the canonical name; `ipEndpoint` kept for back-compat.
+        this.host = options.host ?? options.ipEndpoint
     }
     async connect(): Promise<boolean> {
         const socket = this.duplex as Socket;
         return  new Promise((resolve,reject)=>{
-            const listener = (error)=>{
-                console.log(error)
-                reject(false)
+            const listener = (error:Error)=>{
+                reject(error)
             }
             socket.once("error",listener)
-            socket.connect(this.port,this.ipEndpoint,()=>{
+            socket.connect(this.port,this.host,()=>{
                 socket.removeListener("error",listener);
                 resolve(true)
             });

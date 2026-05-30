@@ -20,6 +20,7 @@ import { HidChannel } from "./lib/hid/client/hidChannel";
 import { WebSocketServer } from "./lib/webSocket/server/webSocketServer";
 import { WebSocketClient } from "./lib/webSocket/client/webSocketClient";
 import { WebSocketChannel as ClientWebSocketChannel } from "./lib/webSocket/client/webSocketChannel";
+import { TcpOptions, UdpOptions, WebSocketOptions, HidOptions } from "./lib/options";
 
 export {
     AppServer,
@@ -41,6 +42,10 @@ export {
     ChannelOption,
     ClientArgs,
     ClientOptions,
+    TcpOptions,
+    UdpOptions,
+    WebSocketOptions,
+    HidOptions,
     Config,
     SocketServer,
     ServerSocketClient,
