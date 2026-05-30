@@ -43,5 +43,5 @@ sessionManager.onData(sessionId, (message: any) => {
 
 const isConnected = await sessionManager.connect(sessionId);
 if (isConnected)
-    SessionManager.send(sessionId, Buffer.from("hello world"))
+    sessionManager.send(sessionId, Buffer.from("hello world"))
 ```
