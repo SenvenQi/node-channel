@@ -17,23 +17,54 @@ export class SessionManager implements ISessionManager{
 
     add<T>(sessionOptions:ClientArgs<T>):string{
        const sessionOption = Config.getClientOptions(sessionOptions.channelType)
+       if (!sessionOption)
+           throw new Error(`Unsupported channel type: ${sessionOptions.channelType}`)
        return this.addSession(sessionOption.session,
            sessionOption.channel,
            [sessionOptions.channelOptions.options,sessionOptions.channelOptions.filter])
     }
     private addSession(ctor:SessionClientConstructor,channel:ChannelConstructor,channelArgs:any[]): string{
         const session = new ctor(channel,channelArgs);
-        // session.onClose = this.remove.bind(this)
+        // Reclaim the session once the underlying channel closes so we
+        // don't leak sessions (and their sockets) for the lifetime of
+        // the process.
+        session.onClose = (id:string) => this.remove(id);
         this.sessions.set(session.id,session)
         return session.id
+    }
+
+    private getOrThrow(id:string):Session{
+        const session = this.sessions.get(id)
+        if (!session)
+            throw new Error(`No session found for id: ${id}`)
+        return session
     }
 
     remove(id:string): void {
         this.sessions.delete(id)
     }
 
+    /**
+     * Actively close a session's channel and remove it. Use this for
+     * graceful client shutdown; `remove` only drops the bookkeeping.
+     */
+    disconnect(id:string): void {
+        const session = this.sessions.get(id)
+        if (!session)
+            return
+        const channel = session.channel as unknown as { close?: () => void }
+        channel.close?.()
+        this.sessions.delete(id)
+    }
+
+    /** Close and remove every session. */
+    destroyAll(): void {
+        for (const id of Array.from(this.sessions.keys()))
+            this.disconnect(id)
+    }
+
     send<T>(id:string,message: T): void {
-        this.sessions.get(id).send(message);
+        this.getOrThrow(id).send(message);
     }
 
     onDataAll(func:Event<any>){
@@ -42,12 +73,13 @@ export class SessionManager implements ISessionManager{
        })
     }
     onData(id:string,func:Event<any>){
-       this.sessions.get(id).onMessage = func
+       this.getOrThrow(id).onMessage = func
     }
 
-    connect(sessionId: string) {
-        if (this.sessions.get(sessionId) && this.sessions.get(sessionId) instanceof SessionClient)
-            return (this.sessions.get(sessionId) as SessionClient).openChannel()
+    connect(sessionId: string): Promise<boolean> {
+        const session = this.sessions.get(sessionId)
+        if (session && session instanceof SessionClient)
+            return (session as SessionClient).openChannel()
         else
             throw new Error("SessionServer not support connect")
     }

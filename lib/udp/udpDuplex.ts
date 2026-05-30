@@ -9,7 +9,14 @@ export class UdpDuplex extends Duplex{
         super({ readableObjectMode: true });
         this.udp = udp;
         this.udp.on("message",(msg, rinfo)=>{
-            this.push(JSON.stringify({msg:msg,rinfo:rinfo}))
+            // Push the raw datagram payload so the data shape matches the
+            // other channels (TCP/WS) and the configured filter can decode
+            // it. Sender info is exposed separately for those who need it.
+            this.push(msg)
+            this.emit("rinfo", rinfo)
+        })
+        this.udp.on("error",(err)=>{
+            this.emit("error", err)
         })
         this.udp.on("close",()=>{
             this.emit("close")

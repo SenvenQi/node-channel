@@ -17,8 +17,11 @@ export class WebSocketDuplex extends Duplex{
     }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-        this.ws.send(chunk)
-        callback()
+        if (this.ws.readyState !== WebSocket.OPEN) {
+            callback(new Error("WebSocket is not open"))
+            return
+        }
+        this.ws.send(chunk, (err?: Error) => callback(err ?? null))
     }
     _read(size: number) {
         this.resume()

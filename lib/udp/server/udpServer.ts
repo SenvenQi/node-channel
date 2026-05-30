@@ -22,7 +22,7 @@ export class UdpServer extends SessionClient{
 
     async open():Promise<boolean>{
         if (await this.connect()){
-            this.channel.on("data",this.onMessage)
+            this.channel.on("data",(data:any)=>this.onMessage(data))
             return true;
         }
         return false;

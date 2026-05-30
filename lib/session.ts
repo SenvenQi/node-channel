@@ -7,7 +7,7 @@ export interface Session{
     onClose: Event<any>;
     id:string
     channel:Duplex
-    send<T>(message:T)
+    send<T>(message:T):void
     onMessage:Event<any>
 }
 
@@ -25,14 +25,12 @@ export interface SessionClientConstructor{
 
 export abstract class SessionServer implements Session{
     channel: BaseChannel;
-    private readonly channelCtor:ChannelConstructor;
-    private readonly args:[];
     id: string;
     onMessage:Event<any>= (buffer:any)=>{
         console.log(buffer)
     }
     onClose:Event<any> = () => {
-        console.log("tcp is closed!")
+        console.log("channel is closed!")
     }
     protected constructor(channel:BaseChannel) {
         this.channel = channel;
@@ -40,11 +38,9 @@ export abstract class SessionServer implements Session{
         this.channel.onClose = () => this.onClose(this.id)
     }
 
-    send<T>(message: T) {
+    send<T>(message: T): void {
         this.channel.send(message)
     }
-
-
 
 }
 
@@ -58,7 +54,7 @@ export abstract class SessionClient implements Session {
         console.log(buffer)
     }
     onClose:Event<any> = () => {
-        console.log("tcp is closed!")
+        console.log("channel is closed!")
     }
 
     protected constructor(channelCtor:ChannelConstructor, args:any[]) {
@@ -67,7 +63,7 @@ export abstract class SessionClient implements Session {
         this.id = uuid4()
     }
 
-    send<T>(message: T) {
+    send<T>(message: T): void {
         this.channel.send(message)
     }
 

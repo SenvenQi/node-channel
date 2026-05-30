@@ -1,5 +1,5 @@
 import { AppServer } from "./lib/appServer";
-import {Filter, StringFilter } from "./lib/filter";
+import {Filter, StringFilter, DelimiterFilter } from "./lib/filter";
 import { ServerChannelManager } from "./lib/serverChannelManager";
 import { Session, SessionConstructor, SessionServer, Event } from "./lib/session";
 import {ISessionManager, SessionManager } from "./lib/sessionManager";
@@ -33,6 +33,7 @@ export {
     ISessionManager,
     Filter,
     StringFilter,
+    DelimiterFilter,
     BaseChannel,
     ChannelConstructor,
     ChannelConstructorWithDuplex,

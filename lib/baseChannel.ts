@@ -10,24 +10,22 @@ export interface ChannelConstructorWithDuplex{
 export abstract class BaseChannel extends Duplex {
     public readonly duplex:Duplex
     private filter:Filter;
-    public onClose:() => void;
+    public onClose?:() => void;
 
     protected constructor(duplex:Duplex,filter:Filter) {
         super({ readableObjectMode: true });
-        this.filter = filter
+        this.filter = filter || new StringFilter()
         this.duplex = duplex
         this.duplex.pipe(this)
         this.duplex.on("close",()=>{
-            this.onClose()
+            this.onClose?.()
         })
     }
 
      _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-        if (!this.filter)
-            this.filter = new StringFilter()
-         const result = this.filter.decodePackage(chunk);
-         if (result)
-            this.push(result)
+         const frames = this.filter.decodePackage(chunk);
+         for (const frame of frames)
+            this.push(frame)
          callback()
     }
 
@@ -35,8 +33,21 @@ export abstract class BaseChannel extends Duplex {
        this.resume()
     }
 
-    send(buffer): void {
+    send(buffer: any): void {
         this.duplex.write(buffer);
+    }
+
+    /**
+     * Tear down both the wrapper stream and the underlying transport so
+     * sockets/handles are released instead of leaking after a session
+     * is removed.
+     */
+    close(): void {
+        const underlying = this.duplex as Duplex;
+        if (typeof underlying.destroy === "function")
+            underlying.destroy();
+        if (typeof this.destroy === "function")
+            this.destroy();
     }
 
 }
