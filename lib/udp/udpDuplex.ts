@@ -2,7 +2,6 @@ import { Duplex } from "stream";
 import { Socket } from "dgram";
 export class UdpDuplex extends Duplex {
     private udp: Socket;
-    private msg: string | Uint8Array | ReadonlyArray<any>;
     private port?: number;
     private address?: string;
     constructor(udp: Socket) {

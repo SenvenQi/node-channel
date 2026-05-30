@@ -9,12 +9,14 @@ export interface ChannelConstructorWithDuplex {
 }
 export abstract class BaseChannel extends Duplex {
     public readonly duplex: Duplex;
-    private filter: Filter;
+    // Named with a trailing underscore to avoid clashing with the
+    // Stream.prototype.filter() helper present on modern Node runtimes.
+    private readonly filter_: Filter;
     public onClose?: () => void;
 
     protected constructor(duplex: Duplex, filter: Filter) {
         super({ readableObjectMode: true });
-        this.filter = filter || new StringFilter();
+        this.filter_ = filter || new StringFilter();
         this.duplex = duplex;
         this.duplex.pipe(this);
         this.duplex.on("close", () => {
@@ -23,7 +25,7 @@ export abstract class BaseChannel extends Duplex {
     }
 
     _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void) {
-        const frames = this.filter.decodePackage(chunk);
+        const frames = this.filter_.decodePackage(chunk);
         for (const frame of frames) this.push(frame);
         callback();
     }

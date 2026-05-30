@@ -1,9 +1,9 @@
-import { Socket } from "net";
+import { Duplex } from "stream";
 import { BaseChannel } from "../../baseChannel";
-import { Filter, StringFilter } from "../../filter";
+import { Filter } from "../../filter";
 
 export class TcpChannel extends BaseChannel {
-    constructor(socket: Socket, filter: Filter) {
+    constructor(socket: Duplex, filter: Filter) {
         super(socket, filter);
     }
 }

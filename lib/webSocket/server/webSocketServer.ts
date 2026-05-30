@@ -6,7 +6,7 @@ import { WebSocketDuplex } from "../webSocketDuplex";
 import { Filter } from "../../filter";
 
 export class WebSocketServer extends BaseAppServer {
-    private socket: Server;
+    private socket?: Server;
     private readonly filter: new () => Filter;
     constructor(option: ServerOptions, filter: new () => Filter) {
         super(WebSocketClient, WebSocketChannel);
@@ -14,7 +14,7 @@ export class WebSocketServer extends BaseAppServer {
         this.filter = filter;
     }
 
-    state: boolean;
+    state!: boolean;
     option: ServerOptions;
     error(error: Error): void {
         console.log(error.message);

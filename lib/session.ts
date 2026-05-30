@@ -43,7 +43,7 @@ export abstract class SessionServer implements Session {
 }
 
 export abstract class SessionClient implements Session {
-    channel: BaseChannel;
+    channel!: BaseChannel;
     private readonly channelCtor: ChannelConstructor;
     private readonly args: any[];
     id: string;

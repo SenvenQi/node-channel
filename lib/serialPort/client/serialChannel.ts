@@ -9,9 +9,8 @@ export class SerialChannel extends BaseChannel {
     async connect(): Promise<boolean> {
         const serialPort = this.duplex as SerialPort;
         return new Promise((resolve, reject) => {
-            const listener = (error) => {
-                console.log(error);
-                reject(false);
+            const listener = (error: Error) => {
+                reject(error);
             };
             serialPort.once("error", listener);
             serialPort.open((err) => {

@@ -2,7 +2,7 @@ import { Duplex } from "stream";
 import { HID } from "node-hid";
 
 export class HidStream extends Duplex {
-    private hid: HID;
+    private hid!: HID;
     private readonly path: string;
     constructor(path: string) {
         super();

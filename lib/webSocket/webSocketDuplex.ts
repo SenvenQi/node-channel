@@ -3,7 +3,6 @@ import { WebSocket } from "ws";
 
 export class WebSocketDuplex extends Duplex {
     private ws: WebSocket;
-    private msg: string | Uint8Array | ReadonlyArray<any>;
     constructor(ws: WebSocket) {
         super({ readableObjectMode: true, writableObjectMode: true });
         this.ws = ws;
@@ -28,14 +27,13 @@ export class WebSocketDuplex extends Duplex {
     }
     connect(): Promise<Boolean> {
         return new Promise((resolve, reject) => {
-            const openListener = (error) => {
+            const openListener = () => {
                 this.ws.removeListener("error", errorListener);
                 resolve(true);
             };
 
-            const errorListener = (error) => {
+            const errorListener = (error: Error) => {
                 this.ws.removeListener("open", openListener);
-                console.log(error);
                 reject(error);
             };
             this.ws.once("open", openListener);

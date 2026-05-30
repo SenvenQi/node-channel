@@ -72,7 +72,7 @@ export class Config {
         ],
     ]);
 
-    public static getClientOptions(channelType: ChannelType): ClientOptions {
+    public static getClientOptions(channelType: ChannelType): ClientOptions | undefined {
         return this.values.get(channelType);
     }
 }

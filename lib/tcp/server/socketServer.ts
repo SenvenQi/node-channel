@@ -3,14 +3,14 @@ import { BaseAppServer } from "../../appServer";
 import { SocketClient } from "./socketClient";
 import { TcpChannel } from "./tcpChannel";
 import { Filter } from "../../filter";
-class SocketOptions {
+interface SocketOptions {
     socketConstructorOpts?: ServerOpts;
     port: number;
     host: string;
 }
 
 export class SocketServer extends BaseAppServer {
-    private socket: Server;
+    private socket?: Server;
     private filter: new () => Filter;
     constructor(option: SocketOptions, filter: new () => Filter) {
         super(SocketClient, TcpChannel);
@@ -18,7 +18,7 @@ export class SocketServer extends BaseAppServer {
         this.filter = filter;
     }
 
-    state: boolean;
+    state!: boolean;
     option: SocketOptions;
     error(error: Error): void {
         console.log(error.message);

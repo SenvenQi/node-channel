@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "tsc",
-    "test": "tsc -p tsconfig.test.json && node --test dist-test/test/",
+    "test": "tsc -p tsconfig.test.json && node --test \"dist-test/test/**/*.test.js\"",
     "lint": "eslint . --ext .ts",
     "format": "prettier --write \"{lib,test}/**/*.ts\" index.ts",
     "format:check": "prettier --check \"{lib,test}/**/*.ts\" index.ts",

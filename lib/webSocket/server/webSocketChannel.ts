@@ -1,10 +1,9 @@
+import { Duplex } from "stream";
 import { BaseChannel } from "../../baseChannel";
-import { Filter, StringFilter } from "../../filter";
-import { WebSocket, WebSocketServer } from "ws";
-import { WebSocketDuplex } from "../webSocketDuplex";
+import { Filter } from "../../filter";
 
 export class WebSocketChannel extends BaseChannel {
-    constructor(webSocketDuplex: WebSocketDuplex, filter: Filter) {
+    constructor(webSocketDuplex: Duplex, filter: Filter) {
         super(webSocketDuplex, filter);
     }
 }
