@@ -189,6 +189,43 @@ server.onServerData((message) => {
 server.listen();
 ```
 
+### HTTP server
+
+An HTTP listener that funnels every inbound request body to `onServerData` and
+replies `200 OK`. `multipart/form-data` bodies are parsed and emitted as a JSON
+string `{ fields, files }`; any other body is emitted as raw text, chunk by
+chunk, as it arrives.
+
+```typescript
+import { HttpServer } from "@sevenqi/nodechannel";
+
+const server = new HttpServer({ port: 8080 });
+server.onServerData((message) => {
+    console.log(message);
+});
+server.onError = (err) => console.error(err);
+server.onListening = () => console.log("listening");
+server.listen();
+```
+
+### UDP broadcast / listen client
+
+A UDP client can bind a local port to receive datagrams and enable broadcast so
+it can send to a broadcast address. Pass `localPort` (to receive) and
+`broadcast: true` (to enable `SO_BROADCAST`) alongside the send target:
+
+```typescript
+const sessionId = sessionManager.add({
+    channelType: ChannelType.Udp,
+    channelOptions: {
+        options: { host: "255.255.255.255", port: 1500, localPort: 9000, broadcast: true },
+        filter: StringFilter,
+    },
+});
+await sessionManager.connect(sessionId); // binds localPort + enables SO_BROADCAST
+sessionManager.send(sessionId, Buffer.from("discover"));
+```
+
 ---
 
 ## Development
