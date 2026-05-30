@@ -1,5 +1,5 @@
 import {SessionManager} from "../lib/sessionManager";
-import {UdpChannel} from "../lib/udp/Server/udpChannel";
+import {UdpChannel} from "../lib/udp/server/udpChannel";
 import {UdpServer} from "../lib/udp/server/udpServer";
 import {StringFilter} from "../lib/filter";
 

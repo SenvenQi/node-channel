@@ -2,11 +2,13 @@
   "name": "@sevenqi/nodechannel",
   "version": "1.1.6",
   "description": "nodejs channel",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc & node ./dist/index.js",
-    "startUdpClient": "tsc & node ./dist/examples/udpClient.js"
+    "start": "tsc && node ./dist/index.js"
   },
   "repository": {
     "type": "git",

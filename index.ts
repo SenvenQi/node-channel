@@ -10,9 +10,20 @@ import { TcpChannel as ServerTcpChannel } from "./lib/tcp/server/tcpChannel";
 import { TcpChannel as ClientTcpChannel } from "./lib/tcp/client/tcpChannel";
 import { SerialClient } from "./lib/serialPort/client/serialClient";
 import { SerialChannel } from "./lib/serialPort/client/serialChannel";
+import { ChannelType, ChannelOption, ClientArgs, ClientOptions, Config } from "./lib/config";
+import { BaseChannel, ChannelConstructor, ChannelConstructorWithDuplex } from "./lib/baseChannel";
+import { BaseAppServer } from "./lib/appServer";
+import { UdpClient } from "./lib/udp/client/udpClient";
+import { UdpChannel as ClientUdpChannel } from "./lib/udp/client/udpChannel";
+import { HidClient } from "./lib/hid/client/hidClient";
+import { HidChannel } from "./lib/hid/client/hidChannel";
+import { WebSocketServer } from "./lib/webSocket/server/webSocketServer";
+import { WebSocketClient } from "./lib/webSocket/client/webSocketClient";
+import { WebSocketChannel as ClientWebSocketChannel } from "./lib/webSocket/client/webSocketChannel";
 
 export {
     AppServer,
+    BaseAppServer,
     ServerChannelManager,
     SessionManager,
     Session,
@@ -22,11 +33,26 @@ export {
     ISessionManager,
     Filter,
     StringFilter,
+    BaseChannel,
+    ChannelConstructor,
+    ChannelConstructorWithDuplex,
+    ChannelType,
+    ChannelOption,
+    ClientArgs,
+    ClientOptions,
+    Config,
     SocketServer,
     ServerSocketClient,
     TcpClient,
     ServerTcpChannel,
     ClientTcpChannel,
     SerialClient,
-    SerialChannel
+    SerialChannel,
+    UdpClient,
+    ClientUdpChannel,
+    HidClient,
+    HidChannel,
+    WebSocketServer,
+    WebSocketClient,
+    ClientWebSocketChannel
 }

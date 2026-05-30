@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2018",
+    "declaration": true,
     "sourceMap": true,
     "skipLibCheck": true,
+    "rootDir": ".",
     "outDir": "dist",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "examples"
   ]
 }
