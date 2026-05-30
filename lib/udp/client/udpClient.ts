@@ -1,3 +1,3 @@
-import {SessionClient} from "../../session";
+import { SessionClient } from "../../session";
 
 export class UdpClient extends SessionClient {}

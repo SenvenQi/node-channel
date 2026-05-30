@@ -27,7 +27,9 @@ test("BaseChannel.onClose fires on underlying close", async () => {
     const underlying = new PassThrough();
     const channel = new TestChannel(underlying);
     let closed = false;
-    channel.onClose = () => { closed = true; };
+    channel.onClose = () => {
+        closed = true;
+    };
 
     underlying.destroy();
     await new Promise((r) => setImmediate(r));

@@ -21,6 +21,10 @@ jobs:
           cache: yarn
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+      - name: Lint
+        run: yarn lint
+      - name: Format check
+        run: yarn format:check
       - name: Build (type-check + emit)
         run: yarn build
       - name: Test

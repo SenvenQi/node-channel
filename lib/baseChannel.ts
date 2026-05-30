@@ -1,36 +1,35 @@
-import {Duplex} from "stream";
-import {Filter, StringFilter} from "./filter";
-export interface ChannelConstructor{
-    new (...args:any[]):BaseChannel
+import { Duplex } from "stream";
+import { Filter, StringFilter } from "./filter";
+export interface ChannelConstructor {
+    new (...args: any[]): BaseChannel;
 }
 
-export interface ChannelConstructorWithDuplex{
-    new (duplex:Duplex,filter:Filter):BaseChannel
+export interface ChannelConstructorWithDuplex {
+    new (duplex: Duplex, filter: Filter): BaseChannel;
 }
 export abstract class BaseChannel extends Duplex {
-    public readonly duplex:Duplex
-    private filter:Filter;
-    public onClose?:() => void;
+    public readonly duplex: Duplex;
+    private filter: Filter;
+    public onClose?: () => void;
 
-    protected constructor(duplex:Duplex,filter:Filter) {
+    protected constructor(duplex: Duplex, filter: Filter) {
         super({ readableObjectMode: true });
-        this.filter = filter || new StringFilter()
-        this.duplex = duplex
-        this.duplex.pipe(this)
-        this.duplex.on("close",()=>{
-            this.onClose?.()
-        })
+        this.filter = filter || new StringFilter();
+        this.duplex = duplex;
+        this.duplex.pipe(this);
+        this.duplex.on("close", () => {
+            this.onClose?.();
+        });
     }
 
-     _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
-         const frames = this.filter.decodePackage(chunk);
-         for (const frame of frames)
-            this.push(frame)
-         callback()
+    _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void) {
+        const frames = this.filter.decodePackage(chunk);
+        for (const frame of frames) this.push(frame);
+        callback();
     }
 
     _read(size: number) {
-       this.resume()
+        this.resume();
     }
 
     send(buffer: any): void {
@@ -44,10 +43,7 @@ export abstract class BaseChannel extends Duplex {
      */
     close(): void {
         const underlying = this.duplex as Duplex;
-        if (typeof underlying.destroy === "function")
-            underlying.destroy();
-        if (typeof this.destroy === "function")
-            this.destroy();
+        if (typeof underlying.destroy === "function") underlying.destroy();
+        if (typeof this.destroy === "function") this.destroy();
     }
-
 }

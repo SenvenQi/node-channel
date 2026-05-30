@@ -1,46 +1,45 @@
-import {Duplex} from "stream";
-import {WebSocket} from "ws";
+import { Duplex } from "stream";
+import { WebSocket } from "ws";
 
-export class WebSocketDuplex extends Duplex{
-    private ws:WebSocket
-    private msg:string | Uint8Array | ReadonlyArray<any>
-    constructor(ws:WebSocket) {
-        super({ readableObjectMode: true,writableObjectMode:true });
-        this.ws = ws
+export class WebSocketDuplex extends Duplex {
+    private ws: WebSocket;
+    private msg: string | Uint8Array | ReadonlyArray<any>;
+    constructor(ws: WebSocket) {
+        super({ readableObjectMode: true, writableObjectMode: true });
+        this.ws = ws;
         const $this = this;
-        this.ws.on("message",(msg, isBinary)=>{
-            $this.push(msg.toString())
-        })
-        this.ws.on("close",()=>{
-            this.emit("close")
-        })
+        this.ws.on("message", (msg, isBinary) => {
+            $this.push(msg.toString());
+        });
+        this.ws.on("close", () => {
+            this.emit("close");
+        });
     }
 
-    _write(chunk: any, encoding: BufferEncoding, callback: (error?: (Error | null)) => void) {
+    _write(chunk: any, encoding: BufferEncoding, callback: (error?: Error | null) => void) {
         if (this.ws.readyState !== WebSocket.OPEN) {
-            callback(new Error("WebSocket is not open"))
-            return
+            callback(new Error("WebSocket is not open"));
+            return;
         }
-        this.ws.send(chunk, (err?: Error) => callback(err ?? null))
+        this.ws.send(chunk, (err?: Error) => callback(err ?? null));
     }
     _read(size: number) {
-        this.resume()
+        this.resume();
     }
-    connect():Promise<Boolean>{
-        return new Promise((resolve,reject)=>{
-            const openListener = (error)=>{
-                this.ws.removeListener("error",errorListener);
-                resolve(true)
-            }
+    connect(): Promise<Boolean> {
+        return new Promise((resolve, reject) => {
+            const openListener = (error) => {
+                this.ws.removeListener("error", errorListener);
+                resolve(true);
+            };
 
-            const errorListener =  (error)=>{
-                this.ws.removeListener("open",openListener);
-                console.log(error)
-                reject(error)
-            }
-            this.ws.once("open",openListener);
-            this.ws.once("error",errorListener)
-        })
-
+            const errorListener = (error) => {
+                this.ws.removeListener("open", openListener);
+                console.log(error);
+                reject(error);
+            };
+            this.ws.once("open", openListener);
+            this.ws.once("error", errorListener);
+        });
     }
 }

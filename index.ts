@@ -1,8 +1,8 @@
 import { AppServer } from "./lib/appServer";
-import {Filter, StringFilter, DelimiterFilter } from "./lib/filter";
+import { Filter, StringFilter, DelimiterFilter } from "./lib/filter";
 import { ServerChannelManager } from "./lib/serverChannelManager";
 import { Session, SessionConstructor, SessionServer, Event } from "./lib/session";
-import {ISessionManager, SessionManager } from "./lib/sessionManager";
+import { ISessionManager, SessionManager } from "./lib/sessionManager";
 import { TcpClient } from "./lib/tcp/client/tcpClient";
 import { SocketClient as ServerSocketClient } from "./lib/tcp/server/socketClient";
 import { SocketServer } from "./lib/tcp/server/socketServer";
@@ -60,5 +60,5 @@ export {
     HidChannel,
     WebSocketServer,
     WebSocketClient,
-    ClientWebSocketChannel
-}
+    ClientWebSocketChannel,
+};

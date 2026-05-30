@@ -41,9 +41,8 @@ export class DelimiterFilter implements Filter {
     }
 
     decodePackage(buffer: Buffer): string[] {
-        this.buffer = this.buffer.length === 0
-            ? Buffer.from(buffer)
-            : Buffer.concat([this.buffer, buffer]);
+        this.buffer =
+            this.buffer.length === 0 ? Buffer.from(buffer) : Buffer.concat([this.buffer, buffer]);
 
         const frames: string[] = [];
         let index: number;

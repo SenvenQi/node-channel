@@ -1,7 +1,7 @@
 export interface ServerChannelManager {
-    listen(): void
+    listen(): void;
 
-    disListen(): void
+    disListen(): void;
 
-    state: boolean
+    state: boolean;
 }
